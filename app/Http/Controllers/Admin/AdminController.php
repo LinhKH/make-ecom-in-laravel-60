@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
+use App\Admin;
 
 class AdminController extends Controller
 {
@@ -14,13 +15,20 @@ class AdminController extends Controller
         return view('admin.admin_dashboard');
     }
 
+    public function settings()
+    {
+        // $adminDetail = Auth::guard('admin')->user();
+        $adminDetails = Admin::where('email',Auth::guard('admin')->user()->email)->first();
+        return view('admin.admin_settings')->with(compact('adminDetails'));
+    }
+
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
 
             $rules = [
-                'email' => 'required|unique:admins,email|max:255',
+                'email' => 'required|email|max:255',
                 'password' => 'required',
             ];
 
