@@ -11,7 +11,7 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admins')->delete();
+        DB::table('admins')->truncate();
         $adminRecords = [
             ['id' => 1, 'name'=>'admin','type'=>'admin','mobile'=>'0968146460','email'=>'admin@admin.com','password'=>'$2y$10$ydXTQ2l86ZHZkAs.zKh0AOpJwFczo4PAaj/bM/2laVQYIlh7XwNiS','image'=>'','status'=>1],
             ['id' => 2, 'name'=>'user_1','type'=>'subadmin','mobile'=>'0968146460','email'=>'user_1@user_1.com','password'=>'$2y$10$ydXTQ2l86ZHZkAs.zKh0AOpJwFczo4PAaj/bM/2laVQYIlh7XwNiS','image'=>'','status'=>1],
