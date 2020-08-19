@@ -30,6 +30,12 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 
         // Sections 
         Route::match(['get', 'post'], '/sections', 'SectionController@sections');
+        Route::post('update-section-status', 'SectionController@updateSectionStatus');
+        
+        // Categories
+        Route::get('categories', 'CategoryController@categories');
+        Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
+        Route::match(['get', 'post'], 'add-edit-category/{id?}', 'CategoryController@addEditCategpry');
     });
 });
 
