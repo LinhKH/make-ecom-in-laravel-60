@@ -127,9 +127,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and
-                            information about
-                            the plugin.
+                            <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                     </div>
                 </form>
