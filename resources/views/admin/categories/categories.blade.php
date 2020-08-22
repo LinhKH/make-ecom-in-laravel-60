@@ -35,7 +35,9 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Category Name</th>
+                                            <th>Category</th>
+                                            <th>Parent Category</th>
+                                            <th>Section</th>
                                             <th>Url</th>
                                             <th>Status</th>
                                             <th>Actions</th>
@@ -43,9 +45,16 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($categories as $category)
+                                        @if (!isset($category->parentcategory->category_name))
+                                            <?php $parent_category = "Root"; ?>
+                                        @else
+                                            <?php $parent_category = $category->parentcategory->category_name; ?>
+                                        @endif
                                         <tr>
                                             <td>{{ $category->id }}</td>
                                             <td>{{ $category->category_name }}</td>
+                                            <td>{{ $parent_category }}</td>
+                                            <td>{{ $category->section->name }}</td>
                                             <td>{{ $category->url }}</td>
                                             <td>
                                                 @if ($category->status == 1)
@@ -61,7 +70,9 @@
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Parent Category</th>
+                                            <th>Section</th>
                                             <th>Url</th>
                                             <th>Status</th>
                                             <th>Actions</th>

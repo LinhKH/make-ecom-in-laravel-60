@@ -13,7 +13,18 @@ class CategoryController extends Controller
 {
     public function categories() {
         Session::put('page','categories');
-        $categories = Category::get();
+        // if Category Model has ->select(['id','name']) then bellow
+        $categories = Category::with(['section','parentcategory'])->get();
+
+        // $categories = json_decode(json_encode($categories),1);
+        // echo "<pre>"; print_r($categories);die;
+
+        // if Category Model has not ->select(['id','name']) then bellow
+        // $categories = Category::with(['section' => function($query) {
+        //     $query->select(['id','name']);
+        // }])->get();
+        // end
+
         return view('admin.categories.categories')->with(compact('categories'));
     }
 
