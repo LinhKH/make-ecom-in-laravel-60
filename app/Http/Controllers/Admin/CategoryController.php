@@ -67,14 +67,15 @@ class CategoryController extends Controller
             $data = $request->all();
             // Category Validations
             $rules = [
-                'category_name' => 'required|regex:/^[pL\s\-]+$/u',
+                // 'category_name' => 'required|regex:/^[pL\s\-]+$/u',
+                'category_name' => 'required',
                 'section_id' => 'required',
                 'url' => 'required',
                 'category_image' => 'image',
             ];
             $customMessages = [
                 'category_name.required' => 'Name is required',
-                'category_name.regex' => 'Valid Name is required',
+                // 'category_name.regex' => 'Valid Name is required',
                 'section_id.required' => 'Section is required',
                 'url.required' => 'Category Url is required',
                 'category_image.image' => 'Valid Image is required',
@@ -93,7 +94,7 @@ class CategoryController extends Controller
                     $category->category_image = $imageName;
                 }
             }
-
+            echo "<pre>"; print_r($category);die;
             $category->parent_id = $data['parent_id'];
             $category->section_id = $data['section_id'];
             $category->category_name = $data['category_name'];
@@ -105,7 +106,7 @@ class CategoryController extends Controller
             $category->meta_keywords = $data['meta_keywords'];
             $category->status = 1;
             $category->save();
-            
+
             Session::flash('success_message', $flash_message);
             return redirect('admin/categories');
         }
@@ -125,5 +126,25 @@ class CategoryController extends Controller
             return view('admin.categories.append_categories_level')->with(compact('getCategories'));
 
         }
+    }
+
+    public function deleteCategoryImage($id) {
+        $categoryImage = Category::select('category_image')->where('id',$id)->first();
+        $category_image_path = 'images/category_images/';
+        if (file_exists($category_image_path.$categoryImage)) {
+            unlink($category_image_path.$categoryImage);
+        }
+
+        Category::where('id',$id)->update(['category_image'=>null]);
+        $flash_message = "Category image has been deleted successfully";
+        Session::flash('success_message', $flash_message);
+        return redirect()->back();
+    }
+
+    public function deleteCategory($id) {
+        Category::where('id',$id)->delete();
+        $flash_message = "Category has been deleted successfully!";
+        Session::flash('success_message', $flash_message);
+        return redirect()->back();
     }
 }

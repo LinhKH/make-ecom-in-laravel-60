@@ -31,6 +31,14 @@
                         </ul>
                     </div>
                 @endif
+                @if (Session::has('success_message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                        {{ Session::get('success_message') }}
+                        <button type="button" class="close" data-mismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <form name="categoryForm" id="categoryForm" 
                     @if (empty($categoryDetail['id']))
                     action="{{ url('admin/add-edit-category') }}"
@@ -116,6 +124,13 @@
                                                 <span class="input-group-text">Upload</span>
                                             </div>
                                         </div>
+                                        @if (!empty($categoryDetail['category_image']))
+                                            <div>
+                                                <img src="{{ asset('images/category_images/'.$categoryDetail['category_image']) }}" style="width: 80px; margin-top:5px;">
+                                                &nbsp;
+                                                <a href="{{ url('admin/delete-category-image/'.$categoryDetail['id']) }}">Delete Image</a>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="url">Category Url</label>
