@@ -1,73 +1,92 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('#current_pwd').keyup(function() {
+    $('#current_pwd').keyup(function () {
         var current_pwd = $('#current_pwd').val();
         $.ajax({
-            type:'post',
-            url:'/admin/check-current-pwd',
-            data:{current_pwd:current_pwd},
-            success: function(resp) {
+            type: 'post',
+            url: '/admin/check-current-pwd',
+            data: { current_pwd: current_pwd },
+            success: function (resp) {
                 if (resp == 'false') {
                     $('#chkCurrendPwd').html("<font color=red>Current Password is incorect</font>");
                 } else if (resp == 'true') {
                     $('#chkCurrendPwd').html("<font color=greem>Current Password is corect</font>");
                 }
-            }, error: function(e) {
-                console.log("Error",e);
+            }, error: function (e) {
+                console.log("Error", e);
                 alert(e);
             }
         });
     });
 
-    $('.updateSectionStatus').click(function() {
+    $('.updateSectionStatus').click(function () {
         var status = $(this).text();
         var section_id = $(this).attr('section_id');
         $.ajax({
-            type:'post',
-            url:'/admin/update-section-status',
-            data:{status:status,section_id:section_id},
-            success:function(resp) {
-                if(resp['status']==0) {
-                    $('#section-'+section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>Active</a>");
-                } else if (resp['status']==1) {
-                    $('#section-'+section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>Inactive</a>");
+            type: 'post',
+            url: '/admin/update-section-status',
+            data: { status: status, section_id: section_id },
+            success: function (resp) {
+                if (resp['status'] == 0) {
+                    $('#section-' + section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>Active</a>");
+                } else if (resp['status'] == 1) {
+                    $('#section-' + section_id).html("<a class='updateSectionStatus' href='javascript:void(0)'>Inactive</a>");
                 }
             }
         });
     });
 
-    $('.updateCategoryStatus').click(function() {
+    $('.updateCategoryStatus').click(function () {
         var status = $(this).text();
         var category_id = $(this).attr('category_id');
         $.ajax({
-            type:'post',
-            url:'/admin/update-category-status',
-            data:{status:status,category_id:category_id},
-            success:function(resp) {
-                if(resp['status']==0) {
-                    $('#category-'+category_id).html("<a class='updateCategooryStatus' href='javascript:void(0)'>Active</a>");
-                } else if (resp['status']==1) {
-                    $('#category-'+category_id).html("<a class='updateCategooryStatus' href='javascript:void(0)'>Inactive</a>");
+            type: 'post',
+            url: '/admin/update-category-status',
+            data: { status: status, category_id: category_id },
+            success: function (resp) {
+                if (resp['status'] == 0) {
+                    $('#category-' + category_id).html("<a class='updateCategooryStatus' href='javascript:void(0)'>Active</a>");
+                } else if (resp['status'] == 1) {
+                    $('#category-' + category_id).html("<a class='updateCategooryStatus' href='javascript:void(0)'>Inactive</a>");
                 }
             }
         });
     });
 
-    $('#section_id').change(function() {
+    $('#section_id').change(function () {
         var section_id = $(this).val();
         $.ajax({
-            type:'post',
-            url:'/admin/append-categories-level',
-            data:{section_id:section_id},
-            success: function(resp) {
+            type: 'post',
+            url: '/admin/append-categories-level',
+            data: { section_id: section_id },
+            success: function (resp) {
                 $('#appendCategoriesLevel').html(resp);
             },
-            error:function(e) {
+            error: function (e) {
                 console.log(e);
                 alert(e);
             }
         });
     });
+
+    // Confirm Delete with SwwetAlert2
+    $(".confirmDelete").click(function () {
+        var record = $(this).attr('record');
+        var recordid = $(this).attr('recordid');
+        Swal.fire({
+            title: 'Are you sure?',
+            // text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = "/admin/delete-"+record+"/"+recordid;
+            }
+        })
+    })
 
 
 })

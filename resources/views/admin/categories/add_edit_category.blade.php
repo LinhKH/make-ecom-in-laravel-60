@@ -128,7 +128,8 @@
                                             <div>
                                                 <img src="{{ asset('images/category_images/'.$categoryDetail['category_image']) }}" style="width: 80px; margin-top:5px;">
                                                 &nbsp;
-                                                <a href="{{ url('admin/delete-category-image/'.$categoryDetail['id']) }}">Delete Image</a>
+                                                <a class="confirmDelete" record="category-image" recordid="{{ $categoryDetail['id'] }}" 
+                                                <?php /*href="{{ url('admin/delete-category-image/'.$categoryDetail['id']) }}"*/ ?>>Delete Image</a>
                                             </div>
                                         @endif
                                     </div>
