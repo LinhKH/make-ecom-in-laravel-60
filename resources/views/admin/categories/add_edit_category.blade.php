@@ -82,22 +82,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Category Description</label>
-                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter ...">
-                                        @if (!empty($categoryDetail['description']))
-                                            {{ $categoryDetail['description'] }}
-                                        @else
-                                            {{ old('description') }}
-                                        @endif</textarea>
+                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter ...">@if (!empty($categoryDetail['description'])){{ $categoryDetail['description'] }}@else{{ old('description') }}@endif</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="meta_description">Meta Description</label>
-                                        <textarea class="form-control" id="meta_description" name="meta_description" rows="3" placeholder="Enter ...">
-                                            @if (!empty($categoryDetail['meta_description']))
-                                            {{ $categoryDetail['meta_description'] }}
-                                            @else
-                                            {{ old('meta_description') }}
-                                            @endif
-                                        </textarea>
+                                        <textarea class="form-control" id="meta_description" name="meta_description" rows="3" placeholder="Enter ...">@if (!empty($categoryDetail['meta_description'])){{ $categoryDetail['meta_description'] }} @else {{ old('meta_description') }} @endif</textarea>
                                     </div>
                                     <!-- /.form-group -->
                                 </div>
@@ -141,24 +130,12 @@
                                     <!-- /.form-group -->
                                     <div class="form-group">
                                         <label for="meta_title">Meta Title</label>
-                                        <textarea class="form-control" id="meta_title" name="meta_title" rows="3" placeholder="Enter ...">
-                                            @if (!empty($categoryDetail['meta_title']))
-                                            {{ $categoryDetail['meta_title'] }}
-                                            @else
-                                            {{ old('meta_title') }}
-                                            @endif
-                                        </textarea>
+                                        <textarea class="form-control" id="meta_title" name="meta_title" rows="3" placeholder="Enter ...">@if (!empty($categoryDetail['meta_title'])){{ $categoryDetail['meta_title'] }}@else{{ old('meta_title') }}@endif</textarea>
                                     </div>
                                     <!-- /.form-group -->
                                     <div class="form-group">
                                         <label for="meta_keywords">Meta Keywords</label>
-                                        <textarea class="form-control" id="meta_keywords" name="meta_keywords" rows="3" placeholder="Enter ...">
-                                            @if (!empty($categoryDetail['meta_keywords']))
-                                            {{ $categoryDetail['meta_keywords'] }}
-                                            @else
-                                            {{ old('meta_keywords') }}
-                                            @endif
-                                        </textarea>
+                                        <textarea class="form-control" id="meta_keywords" name="meta_keywords" rows="3" placeholder="Enter ...">@if (!empty($categoryDetail['meta_keywords'])){{ $categoryDetail['meta_keywords'] }}@else{{ old('meta_keywords') }}@endif</textarea>
                                     </div>
                                 </div>
                                 <!-- /.col -->
