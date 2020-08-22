@@ -1,6 +1,5 @@
 <label for="parent_id">Select Category Level</label>
-<select class="form-control select2 select2-danger" id="parent_id" name="parent_id"
-    data-dropdown-css-class="select2-danger" style="width: 100%;">
+<select class="form-control select2" id="parent_id" name="parent_id" style="width: 100%;">
     <option value="0">Main Category</option>
     @if (!empty($getCategories))
         @foreach ($getCategories as $category)

@@ -63,7 +63,9 @@
                                                     <a class="updateCategoryStatus" id="category-{{$category->id}}" category_id="{{$category->id}}" href="javascript:void(0)">Inactive</a>
                                                 @endif
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                <a href="{{ url('admin/add-edit-category/'.$category->id) }}">Edit</a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

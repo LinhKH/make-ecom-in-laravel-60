@@ -45,8 +45,20 @@ class CategoryController extends Controller
         if(!$id) {
             $title = "Add Category";
             $category = new Category;
+            $categoryDetail = [];
+            $getCategories = [];
         } else {
             $title = "Edit Category";
+
+            $categoryDetail = Category::where('id',$id)->first();
+
+            $getCategories = Category::with('subcategories')->where(['section_id' => $categoryDetail['section_id'],'parent_id' => 0,'status' => 1])->get();
+            $getCategories = json_decode(json_encode($getCategories), 1);
+
+            // $categoryDetail = json_decode(json_encode($categoryDetail),1);
+            // echo "<pre>"; print_r($categoryDetail);die;
+
+
         }
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -96,7 +108,7 @@ class CategoryController extends Controller
         // get all sections
         $sections = Section::get();
 
-        return view('admin.categories.add_edit_category')->with(compact('title','sections'));
+        return view('admin.categories.add_edit_category')->with(compact('title','sections','categoryDetail','getCategories'));
     }
 
     public function appendCategoriesLevel(Request $request) {
