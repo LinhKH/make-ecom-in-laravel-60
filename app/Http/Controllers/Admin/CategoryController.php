@@ -87,4 +87,15 @@ class CategoryController extends Controller
 
         return view('admin.categories.add_edit_category')->with(compact('title','sections'));
     }
+
+    public function appendCategoriesLevel(Request $request) {
+        if ($request->ajax()) {
+            $data = $request->all();
+            $getCategories = Category::with('subcategories')->where(['section_id' => $data['section_id'],'parent_id' => 0,'status' => 1])->get();
+            $getCategories = json_decode(json_encode($getCategories), 1);
+
+            return view('admin.categories.append_categories_level')->with(compact('getCategories'));
+
+        }
+    }
 }

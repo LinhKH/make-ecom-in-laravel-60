@@ -55,13 +55,8 @@
                                         <input type="text" class="form-control" id="category_name" name="category_name"
                                             placeholder="Enter Category Name">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="parent_id">Select Category Level</label>
-                                        <select class="form-control select2 select2-danger" id="parent_id" name="parent_id"
-                                            data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                            <option value="0">Main Category</option>
-                                            
-                                        </select>
+                                    <div class="form-group" id="appendCategoriesLevel">
+                                        @include('admin.categories.append_categories_level')
                                     </div>
                                     <!-- /.form-group -->
                                     <div class="form-group">
@@ -70,17 +65,12 @@
                                             placeholder="Enter Category Discount">
                                     </div>
                                     <div class="form-group">
-                                        <label>Category Description</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                        <label for="description">Category Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="meta_description">Meta Description</label>
-                                        <input type="text" class="form-control" id="meta_description" name="meta_description"
-                                            placeholder="Enter Meta Description">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="meta_keywords">Meta Keywords</label>
-                                        <textarea class="form-control" id="meta_keywords" name="meta_keywords" rows="3" placeholder="Enter ..."></textarea>
+                                        <textarea class="form-control" id="meta_description" name="meta_description" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
                                     <!-- /.form-group -->
                                 </div>
@@ -118,11 +108,14 @@
                                         <textarea class="form-control" id="meta_title" name="meta_title" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
                                     <!-- /.form-group -->
+                                    <div class="form-group">
+                                        <label for="meta_keywords">Meta Keywords</label>
+                                        <textarea class="form-control" id="meta_keywords" name="meta_keywords" rows="3" placeholder="Enter ..."></textarea>
+                                    </div>
                                 </div>
                                 <!-- /.col -->
                             </div>
                             <!-- /.row -->
-
 
                         </div>
                         <!-- /.card-body -->
