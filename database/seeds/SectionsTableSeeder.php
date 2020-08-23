@@ -11,6 +11,7 @@ class SectionsTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('sections')->truncate();
         $sectionRecords = [
             ['id' => 1, 'name'=>'Men','status'=>1],
             ['id' => 2, 'name'=>'Women','status'=>1],
