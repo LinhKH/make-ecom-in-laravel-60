@@ -94,7 +94,7 @@ class CategoryController extends Controller
                     $category->category_image = $imageName;
                 }
             }
-            echo "<pre>"; print_r($category);die;
+
             $category->parent_id = $data['parent_id'];
             $category->section_id = $data['section_id'];
             $category->category_name = $data['category_name'];

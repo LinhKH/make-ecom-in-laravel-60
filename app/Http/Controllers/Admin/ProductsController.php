@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Section;
@@ -50,6 +51,7 @@ class ProductsController extends Controller
 
 
         }
+
         $arrFabric = ['Cotton','Polyester','Wool'];
         $arrSleeve = ['Full Sleeve','Half Sleeve','Short Sleeve','Sleeveless'];
         $arrPattern = ['Checked','Plain','Printed','Self','Solid'];
@@ -62,46 +64,85 @@ class ProductsController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
+            // echo "<pre>";print_r($data);die;
             // Product Validations
             $rules = [
-                // 'category_name' => 'required|regex:/^[pL\s\-]+$/u',
-                'category_name' => 'required',
-                'section_id' => 'required',
-                'url' => 'required',
-                'category_image' => 'image',
+                'category_id' => 'required',
+                'product_name' => 'required',
+                'product_code' => 'required',
+                'product_price' => 'required|numeric',
+                'product_color' => 'required',
             ];
             $customMessages = [
-                'category_name.required' => 'Name is required',
-                // 'category_name.regex' => 'Valid Name is required',
-                'section_id.required' => 'Section is required',
-                'url.required' => 'Product Url is required',
-                'category_image.image' => 'Valid Image is required',
+                'category_id.required' => 'Category is required',
+                'product_name.required' => 'Product Name is required',
+                'product_code.required' => 'Product Code is required',
+                'product_price.required' => 'Product Price is required',
+                'product_price.numeric' => 'Valid Product Price is required',
+                'product_color.required' => 'Product Color is required',
+                
             ];
             $this->validate($request,$rules,$customMessages);
 
-            if ($request->hasFile('category_image')) {
-                $iamge_tmp = $request->file('category_image');
+            // Upload Product Image
+            if ($request->hasFile('product_video')) {
+                $iamge_tmp = $request->file('main_image');
                 if ($iamge_tmp->isValid()) {
                     $extension = $iamge_tmp->getClientOriginalExtension();
 
                     $imageName = rand(111,99999).'.'.$extension;
-                    $iamgePath = 'images/category_images/'.$imageName;
+                    $iamgePath = 'images/product_images/'.$imageName;
 
                     Image::make($iamge_tmp)->save($iamgePath);
-                    $product->category_image = $imageName;
+                    $product->main_image = $imageName;
                 }
+            } else {
+                $product->main_image = null;
             }
-            echo "<pre>"; print_r($product);die;
-            $product->parent_id = $data['parent_id'];
-            $product->section_id = $data['section_id'];
-            $product->category_name = $data['category_name'];
-            $product->category_discount = $data['category_discount'];
+            // Upload Product Video
+            if ($request->hasFile('product_video')) {
+                $video_tmp = $request->file('product_video');
+                if ($video_tmp->isValid()) {
+                    $extension = $video_tmp->getClientOriginalExtension();
+
+                    $videoName = rand(111,99999).'.'.$extension;
+                    $videoPath = 'videos/product_videos/'.$videoName;
+
+                    Image::make($video_tmp)->save($videoPath);
+                    $product->product_video = $videoName;
+                }
+            } else {
+                $product->product_video = null;
+            }
+
+            if (empty($data['is_featured'])) {
+                $is_featured = "No";
+            } else {
+                $is_featured = "Yes";
+            }
+            $categoryDetail = Category::find($data['category_id']);
+
+            $product->category_id = $data['category_id'];
+            $product->section_id = $categoryDetail['section_id'];
+            $product->product_name = $data['product_name'];
+            $product->product_code = $data['product_code'];
+            $product->product_color = $data['product_color'];
+            $product->product_discount = $data['product_discount'];
+            $product->product_price = $data['product_price'];
+            $product->product_weight = $data['product_weight'];
             $product->description = $data['description'];
-            $product->url = $data['url'];
+            $product->wash_care = $data['wash_care'];
+            $product->fabric = $data['fabric'];
+            $product->pattern = $data['pattern'];
+            $product->sleeve = $data['sleeve'];
+            $product->fit = $data['fit'];
+            $product->occasion = $data['occasion'];
             $product->meta_title = $data['meta_title'];
             $product->meta_description = $data['meta_description'];
             $product->meta_keywords = $data['meta_keywords'];
+            $product->is_featured = $is_featured;
             $product->status = 1;
+
             $product->save();
 
             Session::flash('success_message', $flash_message);

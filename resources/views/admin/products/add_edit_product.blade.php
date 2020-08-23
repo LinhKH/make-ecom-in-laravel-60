@@ -73,9 +73,9 @@
                                                     <optgroup label="{{ $section['name'] }}">
                                                         @if (!empty($section['categories'])) 
                                                             @foreach ($section['categories'] as $category)
-                                                                <option value="{{ $category['id'] }}">&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $category['category_name'] }}</option>
+                                                                <option value="{{ $category['id'] }}" @if(!empty(@old('category_id')) && $category['id'] == @old('category_id')) selected @endif>&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $category['category_name'] }}</option>
                                                                 @foreach ($category['subcategories'] as $subcategory)
-                                                                    <option value="{{ $subcategory['id'] }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subcategory['category_name'] }}</option>
+                                                                    <option value="{{ $subcategory['id'] }}" @if(!empty(@old('category_id')) && $subcategory['id'] == @old('category_id')) selected @endif >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subcategory['category_name'] }}</option>
                                                                 @endforeach
                                                             @endforeach
                                                         @endif
@@ -142,7 +142,10 @@
                                             <option value="">Select</option>
                                             @if (!empty($arrSleeve))
                                                 @foreach ($arrSleeve as $sleeve)
-                                                    <option value="{{$sleeve}}">{{ $sleeve }}</option>
+                                                    <option value="{{$sleeve}}"
+                                                    @if (!empty($productDetail['sleeve']) && $productDetail['sleeve'] == $sleeve )
+                                                        selected
+                                                    @endif>{{ $sleeve }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -154,7 +157,10 @@
                                             <option value="">Select</option>
                                             @if (!empty($arrPattern))
                                                 @foreach ($arrPattern as $pattern)
-                                                    <option value="{{$pattern}}">{{ $pattern }}</option>
+                                                    <option value="{{$pattern}}" 
+                                                    @if (!empty($productDetail['pattern']) && $productDetail['pattern'] == $pattern )
+                                                        selected
+                                                    @endif>{{ $pattern }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -172,7 +178,7 @@
 
                                     <div class="form-group">
                                         <label for="is_featured">Featured</label>
-                                        <input type="checkbox" name="is_featured" id="is_featured">
+                                        <input type="checkbox" name="is_featured" id="is_featured" value="1">
                                     </div>
 
                                 </div>
@@ -210,19 +216,19 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="product_image">Product Image</label>
+                                        <label for="main_image">Product Image</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="product_image" name="product_image">
-                                                <label class="custom-file-label" for="product_image">Choose file</label>
+                                                <input type="file" class="custom-file-input" id="main_image" name="main_image">
+                                                <label class="custom-file-label" for="main_image">Choose file</label>
                                             </div>
                                             <div class="input-group-append">
                                                 <span class="input-group-text">Upload</span>
                                             </div>
                                         </div>
-                                        @if (!empty($productDetail['product_image']))
+                                        @if (!empty($productDetail['main_image']))
                                             <div>
-                                                <img src="{{ asset('images/product_images/'.$productDetail['product_image']) }}" style="width: 80px; margin-top:5px;">
+                                                <img src="{{ asset('images/product_images/'.$productDetail['main_image']) }}" style="width: 80px; margin-top:5px;">
                                                 &nbsp;
                                                 <a class="confirmDelete" record="product-image" recordid="{{ $productDetail['id'] }}" 
                                                 <?php /*href="{{ url('admin/delete-product-image/'.$productDetail['id']) }}"*/ ?>>Delete Image</a>
@@ -241,7 +247,10 @@
                                             <option value="">Select</option>
                                             @if (!empty($arrFabric))
                                                 @foreach ($arrFabric as $fabric)
-                                                    <option value="{{$fabric}}">{{ $fabric }}</option>
+                                                    <option value="{{$fabric}}"
+                                                    @if (!empty($productDetail['fabric']) && $productDetail['fabric'] == $fabric )
+                                                        selected
+                                                    @endif>{{ $fabric }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -253,7 +262,10 @@
                                             <option value="">Select</option>
                                             @if (!empty($arrFit))
                                                 @foreach ($arrFit as $fit)
-                                                    <option value="{{$fit}}">{{ $fit }}</option>
+                                                    <option value="{{$fit}}"
+                                                    @if (!empty($productDetail['fit']) && $productDetail['fit'] == $fit )
+                                                        selected
+                                                    @endif>{{ $fit }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -265,7 +277,10 @@
                                             <option value="">Select</option>
                                             @if (!empty($arrOccasion))
                                                 @foreach ($arrOccasion as $occasion)
-                                                    <option value="{{$occasion}}">{{ $occasion }}</option>
+                                                    <option value="{{$occasion}}"
+                                                    @if (!empty($productDetail['occasion']) && $productDetail['occasion'] == $occasion )
+                                                        selected
+                                                    @endif>{{ $occasion }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
