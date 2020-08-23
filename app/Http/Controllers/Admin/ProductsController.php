@@ -85,15 +85,22 @@ class ProductsController extends Controller
             $this->validate($request,$rules,$customMessages);
 
             // Upload Product Image
-            if ($request->hasFile('product_video')) {
-                $iamge_tmp = $request->file('main_image');
-                if ($iamge_tmp->isValid()) {
-                    $extension = $iamge_tmp->getClientOriginalExtension();
+            if ($request->hasFile('main_image')) {
+                $image_tmp = $request->file('main_image');
+                if ($image_tmp->isValid()) {
+                    $image_name = $image_tmp->getClientOriginalName();
+                    $extension = $image_tmp->getClientOriginalExtension();
 
-                    $imageName = rand(111,99999).'.'.$extension;
-                    $iamgePath = 'images/product_images/'.$imageName;
+                    $imageName = $image_name.'-'.rand(111,99999).'.'.$extension;
 
-                    Image::make($iamge_tmp)->save($iamgePath);
+                    $large_image_path = 'images/product_images/large/'.$imageName;
+                    $medium_image_path = 'images/product_images/medium/'.$imageName;
+                    $small_image_path = 'images/product_images/small/'.$imageName;
+
+                    Image::make($image_tmp)->save($large_image_path);
+                    Image::make($image_tmp)->resize(520,600)->save($medium_image_path);
+                    Image::make($image_tmp)->resize(260,300)->save($small_image_path);
+
                     $product->main_image = $imageName;
                 }
             } else {
@@ -103,12 +110,13 @@ class ProductsController extends Controller
             if ($request->hasFile('product_video')) {
                 $video_tmp = $request->file('product_video');
                 if ($video_tmp->isValid()) {
+                    $video_name = $video_tmp->getClientOriginalName();
                     $extension = $video_tmp->getClientOriginalExtension();
 
-                    $videoName = rand(111,99999).'.'.$extension;
+                    $videoName = $video_name.'-'.rand(111,99999).'.'.$extension;
                     $videoPath = 'videos/product_videos/'.$videoName;
 
-                    Image::make($video_tmp)->save($videoPath);
+                    $video_tmp->move($videoPath.$videoName);
                     $product->product_video = $videoName;
                 }
             } else {
