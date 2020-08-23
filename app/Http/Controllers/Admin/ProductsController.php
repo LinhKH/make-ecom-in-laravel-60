@@ -56,6 +56,10 @@ class ProductsController extends Controller
         $arrFit = ['Regular','Slim'];
         $arrOccasion = ['Casual','Formal'];
 
+        // Sections with Categories and Sub Categories
+        $categories = Section::with('categories')->get();
+        $categories = json_decode(json_encode($categories),1);
+
         if ($request->isMethod('post')) {
             $data = $request->all();
             // Product Validations
@@ -104,7 +108,7 @@ class ProductsController extends Controller
             return redirect('admin/products');
         }
 
-        return view('admin.products.add_edit_product')->with(compact('title','productDetail','getProducts','arrFabric','arrSleeve','arrPattern','arrFit','arrOccasion'));
+        return view('admin.products.add_edit_product')->with(compact('title','productDetail','getProducts','arrFabric','arrSleeve','arrPattern','arrFit','arrOccasion','categories'));
     }
 
     public function updateProductStatus(Request $request) {
