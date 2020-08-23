@@ -226,6 +226,7 @@
                                                 <span class="input-group-text">Upload</span>
                                             </div>
                                         </div>
+                                        <div>Recommended Image Size: Width:1040px, Height:1200px</div>
                                         @if (!empty($productDetail['main_image']))
                                             <div>
                                                 <img src="{{ asset('images/product_images/'.$productDetail['main_image']) }}" style="width: 80px; margin-top:5px;">
