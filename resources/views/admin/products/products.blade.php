@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Categories</h1>
+                        <h1>Products</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Categories</li>
+                            <li class="breadcrumb-item active">Products</li>
                         </ol>
                     </div>
                 </div>
@@ -34,46 +34,43 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Categories</h3>
-                                <a href="{{url('admin/add-edit-category')}}" style="max-width: 150px; float: right;display:inline-block" class="btn btn-block btn-success">Add Category</a>
+                                <h3 class="card-title">Products</h3>
+                                <a href="{{url('admin/add-edit-category')}}" style="max-width: 150px; float: right;display:inline-block" class="btn btn-block btn-success">Add Product</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="categories" class="table table-bordered table-striped">
+                                <table id="products" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>Product Name</th>
+                                            <th>Product Code</th>
+                                            <th>Product Color</th>
                                             <th>Category</th>
-                                            <th>Parent Category</th>
                                             <th>Section</th>
-                                            <th>Url</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($categories as $category)
-                                        @if (!isset($category->parentcategory->category_name))
-                                            <?php $parent_category = "Root"; ?>
-                                        @else
-                                            <?php $parent_category = $category->parentcategory->category_name; ?>
-                                        @endif
+                                        @foreach ($products as $product)
                                         <tr>
-                                            <td>{{ $category->id }}</td>
-                                            <td>{{ $category->category_name }}</td>
-                                            <td>{{ $parent_category }}</td>
-                                            <td>{{ $category->section->name }}</td>
-                                            <td>{{ $category->url }}</td>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->product_name }}</td>
+                                            <td>{{ $product->product_code }}</td>
+                                            <td>{{ $product->product_color }}</td>
+                                            <td>{{ $product->category->category_name }}</td>
+                                            <td>{{ $product->section->name }}</td>
                                             <td>
-                                                @if ($category->status == 1)
-                                                    <a class="updateCategoryStatus" id="category-{{$category->id}}" category_id="{{$category->id}}" href="javascript:void(0)">Inactive</a>
+                                                @if ($product->status == 1)
+                                                    <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)">Inactive</a>
                                                 @else
-                                                    <a class="updateCategoryStatus" id="category-{{$category->id}}" category_id="{{$category->id}}" href="javascript:void(0)">Active</a>
+                                                    <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)">Active</a>
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ url('admin/add-edit-category/'.$category->id) }}">Edit</a> | 
-                                                <a class="confirmDelete" record="category" recordid="{{ $category->id }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-category/'.$category->id) }}" */ ?> >Delete</a>
+                                                <a href="{{ url('admin/add-edit-product/'.$product->id) }}">Edit</a> | 
+                                                <a class="confirmDelete" record="product" recordid="{{ $product->id }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product/'.$product->id) }}" */ ?> >Delete</a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -81,10 +78,11 @@
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
+                                            <th>Product Name</th>
+                                            <th>Product Code</th>
+                                            <th>Product Color</th>
                                             <th>Category</th>
-                                            <th>Parent Category</th>
                                             <th>Section</th>
-                                            <th>Url</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>

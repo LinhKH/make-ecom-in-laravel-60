@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -37,8 +26,14 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
         Route::match(['get', 'post'], 'add-edit-category/{id?}', 'CategoryController@addEditCategpry');
         Route::post('append-categories-level', 'CategoryController@appendCategoriesLevel');
-        Route::post('delete-category-image/{id}', 'CategoryController@deleteCategoryImage');
-        Route::post('delete-category/{id}', 'CategoryController@deleteCategory');
+        Route::get('delete-category-image/{id}', 'CategoryController@deleteCategoryImage');
+        Route::get('delete-category/{id}', 'CategoryController@deleteCategory');
+
+        // Product
+        Route::get('products', 'ProductsController@products');
+        Route::post('update-product-status', 'ProductsController@updateProductStatus');
+
+        Route::get('delete-product/{id}', 'ProductsController@deleteProduct');
     });
 });
 

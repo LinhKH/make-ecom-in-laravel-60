@@ -68,6 +68,7 @@
         $(function () {
             $("#sections").DataTable();
             $("#categories").DataTable();
+            $("#products").DataTable();
             $('.select2').select2()
         });
     </script>

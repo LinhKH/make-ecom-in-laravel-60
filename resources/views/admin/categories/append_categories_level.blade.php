@@ -3,7 +3,7 @@
     <option value="0"
         @if (isset($categoryDetail['parent_id']) && $categoryDetail['parent_id'] == 0 )
             selected=""
-        @endif>Main Category</option>
+        @endif>Root</option>
     @if (!empty($getCategories))
         @foreach ($getCategories as $category)
             <option value="{{ $category['id'] }}" 
