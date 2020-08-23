@@ -42,13 +42,13 @@
                                     <tbody>
                                         @foreach ($sections as $section)
                                         <tr>
-                                            <td>{{ $section->id }}</td>
-                                            <td>{{ $section->name }}</td>
+                                            <td>{{ $section['id'] }}</td>
+                                            <td>{{ $section['name'] }}</td>
                                             <td>
-                                                @if ($section->status == 1)
-                                                    Active
+                                                @if ($section['status'] == 1)
+                                                    <a class="updateSectionStatus" id="section-{{$section['id']}}" section_id="{{$section['id']}}" href="javascript:void(0)">Inactive</a>
                                                 @else
-                                                    Inactive
+                                                    <a class="updateSectionStatus" id="section-{{$section['id']}}" section_id="{{$section['id']}}" href="javascript:void(0)">Active</a>
                                                 @endif
                                             </td>
                                             <td></td>

@@ -12,6 +12,8 @@ class SectionController extends Controller
     public function sections() {
         Session::put('page','sections');
         $sections = Section::get();
+        $sections = json_decode(json_encode($sections),1);
+        // echo "<pre>"; print_r($sections);die;
         return view('admin.sections.sections')->with(compact('sections'));
     }
 
