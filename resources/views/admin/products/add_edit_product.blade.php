@@ -231,7 +231,7 @@
                                             <div>
                                                 <img src="{{ asset('images/product_images/'.$productDetail['main_image']) }}" style="width: 80px; margin-top:5px;">
                                                 &nbsp;
-                                                <a class="confirmDelete" record="product-image" recordid="{{ $productDetail['id'] }}" 
+                                                <a class="confirmDelete" record="product-image" recordid="{{ $productDetail['id'] }}" href="javascript:void(0)" 
                                                 <?php /*href="{{ url('admin/delete-product-image/'.$productDetail['id']) }}"*/ ?>>Delete Image</a>
                                             </div>
                                         @endif

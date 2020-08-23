@@ -41,7 +41,7 @@ class ProductsController extends Controller
 
             $productDetail = Product::where('id',$id)->first();
 
-            $getProducts = Product::with(['category','section'])->where(['section_id' => $productDetail['section_id'],'parent_id' => 0,'status' => 1])->get();
+            $getProducts = Product::with(['category','section'])->where(['section_id' => $productDetail['section_id'],'category_id' => $productDetail['category_id'],'status' => 1])->get();
             $getProducts = json_decode(json_encode($getProducts), 1);
 
             // $productDetail = json_decode(json_encode($productDetail),1);
