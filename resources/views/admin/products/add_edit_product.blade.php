@@ -67,15 +67,15 @@
                                     <div class="form-group">
                                         <label>Select Category</label>
                                         <select class="form-control select2" style="width: 100%;" id="category_id" name="category_id">
-                                            <option value="">Select</option>
+                                        <option value="">Select</option>
                                             @if (!empty($categories))
                                                 @foreach ($categories as $section)
                                                     <optgroup label="{{ $section['name'] }}">
                                                         @if (!empty($section['categories'])) 
                                                             @foreach ($section['categories'] as $category)
-                                                                <option value="{{ $category['id'] }}" @if(!empty(@old('category_id')) && $category['id'] == @old('category_id')) selected @endif>&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $category['category_name'] }}</option>
+                                                                <option value="{{ $category['id'] }}" @if(!empty($productDetail['category_id']) && $category['id'] == $productDetail['category_id']) selected @endif>&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $category['category_name'] }}</option>
                                                                 @foreach ($category['subcategories'] as $subcategory)
-                                                                    <option value="{{ $subcategory['id'] }}" @if(!empty(@old('category_id')) && $subcategory['id'] == @old('category_id')) selected @endif >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subcategory['category_name'] }}</option>
+                                                                    <option value="{{ $subcategory['id'] }}" @if(!empty($productDetail['category_id']) && $subcategory['id'] == $productDetail['category_id']) selected @endif >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subcategory['category_name'] }}</option>
                                                                 @endforeach
                                                             @endforeach
                                                         @endif
