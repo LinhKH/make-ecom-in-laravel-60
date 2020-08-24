@@ -22,14 +22,9 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                @if (Session::has('success_message'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
-                        {{ Session::get('success_message') }}
-                        <button type="button" class="close" data-mismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
+
+                @include('layouts.partials.flash_message')
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -72,9 +67,9 @@
                                             <td>{{ $product->section->name }}</td>
                                             <td>
                                                 @if ($product->status == 1)
-                                                    <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)">Inactive</a>
-                                                @else
                                                     <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)">Active</a>
+                                                @else
+                                                    <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)">Inactive</a>
                                                 @endif
                                             </td>
                                             <td>

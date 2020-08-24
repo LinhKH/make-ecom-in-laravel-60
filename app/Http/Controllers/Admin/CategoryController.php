@@ -104,7 +104,6 @@ class CategoryController extends Controller
             $category->meta_title = $data['meta_title'];
             $category->meta_description = $data['meta_description'];
             $category->meta_keywords = $data['meta_keywords'];
-            $category->status = 1;
             $category->save();
 
             Session::flash('success_message', $flash_message);

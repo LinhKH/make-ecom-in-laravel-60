@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Category;
 
-class CategoryTableSeeder extends Seeder
+class CategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,6 +18,8 @@ class CategoryTableSeeder extends Seeder
             ['id' => 2, 'parent_id' => 1, 'section_id' => 1, 'category_name' => 'Casual T-Shirts', 'category_image' => '', 'category_discount' => 0, 'description' => '', 'url' => 'casual-t-shirts', 'meta_title' => '', 'meta_description' => '', 'meta_keywords' => '', 'status' => 1],
         ];
 
-        Category::insert($categoryRecords);
+        // Category::insert($categoryRecords);
+        DB::table('categories')->insert($categoryRecords);
     }
 }
+

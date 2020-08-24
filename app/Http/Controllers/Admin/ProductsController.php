@@ -34,15 +34,11 @@ class ProductsController extends Controller
             $title = "Add Product";
             $product = new Product;
             $productDetail = [];
-            $getProducts = [];
             $flash_message = "Product added successfully";
         } else {
             $title = "Edit Product";
 
             $productDetail = Product::where('id',$id)->first();
-
-            $getProducts = Product::with(['category','section'])->where(['section_id' => $productDetail['section_id'],'category_id' => $productDetail['category_id'],'status' => 1])->get();
-            $getProducts = json_decode(json_encode($getProducts), 1);
 
             // $productDetail = json_decode(json_encode($productDetail),1);
             // echo "<pre>"; print_r($productDetail);die;
@@ -149,7 +145,6 @@ class ProductsController extends Controller
             $product->meta_description = $data['meta_description'];
             $product->meta_keywords = $data['meta_keywords'];
             $product->is_featured = $is_featured;
-            $product->status = 1;
 
             $product->save();
 
@@ -157,7 +152,7 @@ class ProductsController extends Controller
             return redirect('admin/products');
         }
 
-        return view('admin.products.add_edit_product')->with(compact('title','productDetail','getProducts','arrFabric','arrSleeve','arrPattern','arrFit','arrOccasion','categories'));
+        return view('admin.products.add_edit_product')->with(compact('title','productDetail','arrFabric','arrSleeve','arrPattern','arrFit','arrOccasion','categories'));
     }
 
     public function updateProductStatus(Request $request) {

@@ -22,23 +22,9 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                @if ($errors->any())
-                    <div class="alert alert-danger" style="margin-top: 10px;">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (Session::has('success_message'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
-                        {{ Session::get('success_message') }}
-                        <button type="button" class="close" data-mismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
+                
+                @include('layouts.partials.flash_message')
+                
                 <form name="productForm" id="productForm" 
                     @if (empty($productDetail['id']))
                     action="{{ url('admin/add-edit-product') }}"
@@ -176,11 +162,6 @@
                                         <textarea class="form-control" id="meta_keywords" name="meta_keywords" rows="3" placeholder="Enter ...">@if (!empty($productDetail['meta_keywords'])){{ $productDetail['meta_keywords'] }}@else{{ old('meta_keywords') }}@endif</textarea>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="is_featured">Featured</label>
-                                        <input type="checkbox" name="is_featured" id="is_featured" value="1">
-                                    </div>
-
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-md-6">
@@ -229,7 +210,7 @@
                                         <div>Recommended Image Size: Width:1040px, Height:1200px</div>
                                         @if (!empty($productDetail['main_image']))
                                             <div>
-                                                <img src="{{ asset('images/product_images/'.$productDetail['main_image']) }}" style="width: 80px; margin-top:5px;">
+                                                <img src="{{ asset('images/product_images/small/'.$productDetail['main_image']) }}" style="width: 80px; margin-top:5px;">
                                                 &nbsp;
                                                 <a class="confirmDelete" record="product-image" recordid="{{ $productDetail['id'] }}" href="javascript:void(0)" 
                                                 <?php /*href="{{ url('admin/delete-product-image/'.$productDetail['id']) }}"*/ ?>>Delete Image</a>
@@ -292,7 +273,10 @@
                                         <textarea class="form-control" id="meta_title" name="meta_title" rows="3" placeholder="Enter ...">@if (!empty($productDetail['meta_title'])){{ $productDetail['meta_title'] }}@else{{ old('meta_title') }}@endif</textarea>
                                     </div>
 
-                                    
+                                    <div class="form-group">
+                                        <label for="is_featured">Featured</label>
+                                        <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if ($productDetail['is_featured'] == 'Yes') checked @endif>
+                                    </div>
                                 </div>
                                 <!-- /.col -->
                             </div>

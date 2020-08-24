@@ -22,23 +22,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                @if ($errors->any())
-                    <div class="alert alert-danger" style="margin-top: 10px;">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (Session::has('success_message'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
-                        {{ Session::get('success_message') }}
-                        <button type="button" class="close" data-mismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
+                @include('layouts.partials.flash_message')
                 <form name="categoryForm" id="categoryForm" 
                     @if (empty($categoryDetail['id']))
                     action="{{ url('admin/add-edit-category') }}"
@@ -128,7 +112,7 @@
                                             <div>
                                                 <img src="{{ asset('images/category_images/'.$categoryDetail['category_image']) }}" style="width: 80px; margin-top:5px;">
                                                 &nbsp;
-                                                <a class="confirmDelete" record="category-image" recordid="{{ $categoryDetail['id'] }}" 
+                                                <a class="confirmDelete" record="category-image" recordid="{{ $categoryDetail['id'] }}" href="javascript:void(0)" 
                                                 <?php /*href="{{ url('admin/delete-category-image/'.$categoryDetail['id']) }}"*/ ?>>Delete Image</a>
                                             </div>
                                         @endif

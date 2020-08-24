@@ -22,6 +22,9 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                
+                @include('layouts.partials.flash_message')
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -46,9 +49,9 @@
                                             <td>{{ $section['name'] }}</td>
                                             <td>
                                                 @if ($section['status'] == 1)
-                                                    <a class="updateSectionStatus" id="section-{{$section['id']}}" section_id="{{$section['id']}}" href="javascript:void(0)">Inactive</a>
-                                                @else
                                                     <a class="updateSectionStatus" id="section-{{$section['id']}}" section_id="{{$section['id']}}" href="javascript:void(0)">Active</a>
+                                                @else
+                                                    <a class="updateSectionStatus" id="section-{{$section['id']}}" section_id="{{$section['id']}}" href="javascript:void(0)">Inactive</a>
                                                 @endif
                                             </td>
                                             <td></td>

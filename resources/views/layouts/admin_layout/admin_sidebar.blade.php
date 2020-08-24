@@ -27,7 +27,7 @@
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                   <li class="nav-item">
-                      <a href="pages/widgets.html" class="nav-link">
+                        <a href="{{ url('/admin/dashboard') }}" class="nav-link">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Dashboard
@@ -44,7 +44,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="./index.html" class="nav-link active">
+                          <a href="{{ url('/admin/settings') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'settings') active @endif">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Update Admin Password</p>
                               </a>
@@ -67,19 +67,19 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="/admin/sections" class="nav-link active">
+                              <a href="{{ url('/admin/sections') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'sections') active @endif">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Sections</p>
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a href="/admin/categories" class="nav-link">
+                              <a href="{{ url('/admin/categories') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'categories') active @endif">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Categories</p>
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a href="/admin/products" class="nav-link">
+                              <a href="{{ url('/admin/products') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'products') active @endif">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Products</p>
                               </a>

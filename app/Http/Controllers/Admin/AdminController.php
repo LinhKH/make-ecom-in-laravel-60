@@ -17,6 +17,7 @@ class AdminController extends Controller
 
     public function settings()
     {
+        Session::put('page','settings');
         // $adminDetail = Auth::guard('admin')->user();
         $adminDetails = Admin::where('email',Auth::guard('admin')->user()->email)->first();
         return view('admin.admin_settings')->with(compact('adminDetails'));
