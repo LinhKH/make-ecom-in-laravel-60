@@ -115,6 +115,14 @@
                                                 <span class="input-group-text">Upload</span>
                                             </div>
                                         </div>
+                                        @if (!empty($productDetail['product_video']))
+                                            <div>
+                                                <img src="{{ asset('videos/product_videos/'.$productDetail['product_video']) }}" style="width: 80px; margin-top:5px;">
+                                                &nbsp;
+                                                <a class="confirmDelete" record="product-video" recordid="{{ $productDetail['id'] }}" href="javascript:void(0)" 
+                                                <?php /*href="{{ url('admin/delete-product-video/'.$productDetail['id']) }}"*/ ?>>Delete Video</a>
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <div class="form-group">
@@ -275,7 +283,7 @@
 
                                     <div class="form-group">
                                         <label for="is_featured">Featured</label>
-                                        <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if ($productDetail['is_featured'] == 'Yes') checked @endif>
+                                        <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if ( !empty($productDetail['is_featured']) &&  $productDetail['is_featured'] == 'Yes') checked @endif>
                                     </div>
                                 </div>
                                 <!-- /.col -->

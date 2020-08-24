@@ -130,8 +130,8 @@ class CategoryController extends Controller
     public function deleteCategoryImage($id) {
         $categoryImage = Category::select('category_image')->where('id',$id)->first();
         $category_image_path = 'images/category_images/';
-        if (file_exists($category_image_path.$categoryImage)) {
-            unlink($category_image_path.$categoryImage);
+        if (file_exists($category_image_path.$categoryImage['category_image'])) {
+            unlink($category_image_path.$categoryImage['category_image']);
         }
 
         Category::where('id',$id)->update(['category_image'=>null]);
