@@ -40,7 +40,7 @@ class ProductsController extends Controller
 
             $productDetail = Product::where('id',$id)->first();
 
-            // $productDetail = json_decode(json_encode($productDetail),1);
+            $productDetail = json_decode(json_encode($productDetail),1);
             // echo "<pre>"; print_r($productDetail);die;
             $product = Product::find($id);
             $flash_message = "Product updated successfully";
@@ -81,7 +81,12 @@ class ProductsController extends Controller
             // Upload Product Image
             if ($request->hasFile('main_image')) {
                 $image_tmp = $request->file('main_image');
+                // var_dump($image_tmp);die;
                 if ($image_tmp->isValid()) {
+                    if (!empty($productDetail)) {
+                        $this->deleteProductImage($productDetail['id']);
+                    }
+
                     $image_name = $image_tmp->getClientOriginalName();
                     $extension = $image_tmp->getClientOriginalExtension();
 
@@ -98,12 +103,15 @@ class ProductsController extends Controller
                     $product->main_image = $imageName;
                 }
             } else {
-                $product->main_image = null;
+                $product->main_image = (isset($productDetail['main_image'])) ? $productDetail['main_image'] : null;
             }
             // Upload Product Video
             if ($request->hasFile('product_video')) {
                 $video_tmp = $request->file('product_video');
                 if ($video_tmp->isValid()) {
+                    if (!empty($productDetail)) {
+                        $this->deleteProductVideo($productDetail['id']);
+                    }
                     $video_name = $video_tmp->getClientOriginalName();
                     $extension = $video_tmp->getClientOriginalExtension();
 
@@ -114,7 +122,7 @@ class ProductsController extends Controller
                     $product->product_video = $videoName;
                 }
             } else {
-                $product->product_video = null;
+                $product->product_video = (isset($productDetail['product_video'])) ? $productDetail['product_video'] : null;
             }
 
             if (empty($data['is_featured'])) {
@@ -173,17 +181,17 @@ class ProductsController extends Controller
         $medium_image_path = 'images/product_images/medium/';
         $large_image_path = 'images/product_images/large/';
 
-        if (file_exists($small_image_path.$productImage['main_image'])) {
+        if (file_exists($small_image_path.$productImage['main_image']) && !empty($productImage['main_image'])) {
             unlink($small_image_path.$productImage['main_image']);
         }
-        if (file_exists($medium_image_path.$productImage['main_image'])) {
+        if (file_exists($medium_image_path.$productImage['main_image']) && !empty($productImage['main_image'])) {
             unlink($medium_image_path.$productImage['main_image']);
         }
-        if (file_exists($large_image_path.$productImage['main_image'])) {
+        if (file_exists($large_image_path.$productImage['main_image']) && !empty($productImage['main_image'])) {
             unlink($large_image_path.$productImage['main_image']);
         }
 
-        Product::where('id',$id)->update(['main_image'=>null]);
+        Product::where('id',$id)->update(['main_image'=> '']);
         $flash_message = "Product image has been deleted successfully";
         Session::flash('success_message', $flash_message);
         return redirect()->back();
@@ -192,11 +200,11 @@ class ProductsController extends Controller
     public function deleteProductVideo($id) {
         $productVideo = Product::select('product_video')->where('id',$id)->first();
         $product_video_path = 'videos/product_videos/';
-        if (file_exists($product_video_path.$productVideo['product_video'])) {
+        if (file_exists($product_video_path.$productVideo['product_video']) && !empty($productVideo['product_video'])) {
             unlink($product_video_path.$productVideo['product_video']);
         }
 
-        Product::where('id',$id)->update(['product_video'=>null]);
+        Product::where('id',$id)->update(['product_video'=> '']);
         $flash_message = "Product video has been deleted successfully";
         Session::flash('success_message', $flash_message);
         return redirect()->back();

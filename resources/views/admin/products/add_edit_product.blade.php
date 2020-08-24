@@ -208,7 +208,12 @@
                                         <label for="main_image">Product Image</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="main_image" name="main_image">
+                                                <input type="file" class="custom-file-input" id="main_image" name="main_image"
+                                                @if (!empty($productDetail['main_image']))
+                                                value="{{$productDetail['main_image'] }}"
+                                                @else
+                                                value="{{ old('main_image') }}"
+                                                @endif>
                                                 <label class="custom-file-label" for="main_image">Choose file</label>
                                             </div>
                                             <div class="input-group-append">
