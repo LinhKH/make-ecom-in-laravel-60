@@ -44,8 +44,6 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($productDetail);die;
             $product = Product::find($id);
             $flash_message = "Product updated successfully";
-
-
         }
 
         $arrFabric = ['Cotton','Polyester','Wool'];
