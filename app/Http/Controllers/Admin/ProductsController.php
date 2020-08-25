@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ProductsAttributes;
 use App\Section;
 use Image;
 use Session;
@@ -221,7 +222,34 @@ class ProductsController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            dd($data);
+            if (!empty($data) && !empty($data['size']) && !empty($data['sku']) && !empty($data['price']) && !empty($data['stock'])) {
+                foreach ($data['sku'] as $key => $value) {
+                    if (!empty($value)) {
+                        // SKU already exists check
+                        $attrCountSku = ProductsAttributes::where('sku',$value)->count();
+                        if ($attrCountSku > 0) {
+                            $flash_message = "Sku already exists. Please add another Sku!";
+                            Session::flash('error_message', $flash_message);
+                        }
+                        // Size already exists check
+                        $attrCountSize = ProductsAttributes::where(['size' => $data['size'][$key], 'product_id' => $id])->count();
+                        if ($attrCountSize > 0) {
+                            $flash_message = "Size already exists. Please add another Size!";
+                            Session::flash('error_message', $flash_message);
+                        }
+                        $attribute = new ProductsAttributes();
+                        $attribute->product_id = $id;
+                        $attribute->size = $data['size'][$key];
+                        $attribute->sku = $data['sku'][$key];
+                        $attribute->price = $data['price'][$key];
+                        $attribute->stock = $data['stock'][$key];
+                        $attribute->save();
+                    }
+                }
+                $flash_message = "Product Attributes has been added successfully!";
+                Session::flash('success_message', $flash_message);
+                return redirect()->back();
+            }
         }
 
         $productDetail = Product::find($id);
