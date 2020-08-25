@@ -104,6 +104,7 @@ $(document).ready(function () {
             }
         });
     });
+
     $('.updateProductStatus').click(function () {
         var status = $(this).text();
         var product_id = $(this).attr('product_id');
@@ -119,6 +120,28 @@ $(document).ready(function () {
                 }
             }
         });
+    });
+
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div style="margin-top:10px;"><input style="width:185px;" id="size" type="text" name="size[]" placeholder="Size" value=""/>&nbsp;<input style="width:185px;" id="sku" type="text" name="sku[]" placeholder="sku" value=""/>&nbsp;<input style="width:185px;" id="price" type="text" name="price[]" placeholder="price" value=""/>&nbsp;<input style="width:185px;" id="stock" type="text" name="stock[]" placeholder="stock" value=""/>&nbsp;<a href="javascript:void(0);" class="remove_button" title="Remove field">&nbsp;<i class="fas fa-minus"></i></a></div>';
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
     });
 
 
