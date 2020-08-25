@@ -22,7 +22,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                
+
                 @include('layouts.partials.flash_message')
 
                 <div class="row">
@@ -44,18 +44,29 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($sections as $section)
-                                        <tr>
-                                            <td>{{ $section['id'] }}</td>
-                                            <td>{{ $section['name'] }}</td>
-                                            <td>
-                                                @if ($section['status'] == 1)
-                                                    <a class="updateSectionStatus" id="section-{{$section['id']}}" section_id="{{$section['id']}}" href="javascript:void(0)">Active</a>
-                                                @else
-                                                    <a class="updateSectionStatus" id="section-{{$section['id']}}" section_id="{{$section['id']}}" href="javascript:void(0)">Inactive</a>
-                                                @endif
-                                            </td>
-                                            <td></td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $section['id'] }}</td>
+                                                <td>{{ $section['name'] }}</td>
+                                                <td>
+                                                    @if ($section['status'] == 1)
+                                                        <a class="updateSectionStatus" id="section-{{ $section['id'] }}"
+                                                            section_id="{{ $section['id'] }}"
+                                                            href="javascript:void(0)">Active</a>
+                                                    @else
+                                                        <a class="updateSectionStatus" id="section-{{ $section['id'] }}"
+                                                            section_id="{{ $section['id'] }}"
+                                                            href="javascript:void(0)">Inactive</a>
+                                                    @endif
+                                                </td>
+                                                <td align="center">
+                                                    <a title="Edit Section"
+                                                        href="{{ url('admin/add-edit-section/' . $section->id) }}"><i
+                                                            class="fas fa-edit"></i></a>&nbsp;&nbsp;
+                                                    <a title="Delete Section" class="confirmDelete" record="section"
+                                                        recordid="{{ $section->id }}" href="javascript:void(0)" <?php /*
+                                                        href="{{ url('admin/delete-section/'.$section->id) }}" */ ?>><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>

@@ -216,4 +216,8 @@ class ProductsController extends Controller
         Session::flash('success_message', $flash_message);
         return redirect()->back();
     }
+
+    public function addAttributes(Request $request, $id = null) {
+
+    }
 }

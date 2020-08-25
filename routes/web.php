@@ -20,6 +20,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         // Sections 
         Route::match(['get', 'post'], '/sections', 'SectionController@sections');
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
+        Route::get('delete-section/{id}', 'SectionController@deleteSection');
         
         // Categories
         Route::get('categories', 'CategoryController@categories');
@@ -36,6 +37,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::get('delete-product-image/{id}', 'ProductsController@deleteProductImage');
         Route::get('delete-product-video/{id}', 'ProductsController@deleteProductVideo');
         Route::get('delete-product/{id}', 'ProductsController@deleteProduct');
+
+        // Attribute
+        Route::match(['get', 'post'], 'add-attributes/{id?}', 'ProductsController@addAttributes');
+        
     });
 });
 
