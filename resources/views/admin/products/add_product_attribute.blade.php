@@ -86,6 +86,58 @@
                         </div>
                     </div>
                 </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Added Product Attributes</h3>
+                                <a href="{{url('admin/add-edit-product')}}" style="max-width: 150px; float: right;display:inline-block" class="btn btn-block btn-success">Add Product</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="products" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Size</th>
+                                            <th>Sku</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($productDetail['attributes'] as $attribute)
+                                        <tr>
+                                            <td>{{ $attribute['id'] }}</td>
+                                            <td>{{ $attribute['size'] }}</td>
+                                            <td>{{ $attribute['sku'] }}</td>
+                                            <td>{{ $attribute['price'] }}</td>
+                                            <td>{{ $attribute['stock'] }}</td>
+                                            <td align="center">
+                                                <a title="Edit Product Attibutes" href="{{ url('admin/add-edit-product/'.$attribute['id']) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; 
+                                                <a title="Delete Product Attibutes" class="confirmDelete" record="product" recordid="{{ $attribute['id'] }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product/'.$product['id']) }}" */ ?> ><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Size</th>
+                                            <th>Sku</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
             </div>
             <!-- /.container-fluid -->
         </section>

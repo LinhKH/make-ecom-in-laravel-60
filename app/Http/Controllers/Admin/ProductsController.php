@@ -252,8 +252,9 @@ class ProductsController extends Controller
             }
         }
 
-        $productDetail = Product::find($id);
+        $productDetail = Product::with('attributes')->withCount('attributes')->find($id);
         $productDetail = json_decode(json_encode($productDetail),1);
+        // echo "<pre>";print_r($productDetail);die;
 
         $title = "Product Attributes";
         return view('admin.products.add_product_attribute')->with(compact('title','productDetail'));
