@@ -13,13 +13,13 @@ class CategoryController extends Controller
 {
     public function categories() {
         Session::put('page','categories');
-        // if Category Model has ->select(['id','name']) then bellow
+        // if Category Model has ->select(['id','name']) then below
         $categories = Category::with(['section','parentcategory'])->get();
 
         // $categories = json_decode(json_encode($categories),1);
         // echo "<pre>"; print_r($categories);die;
 
-        // if Category Model has not ->select(['id','name']) then bellow
+        // if Category Model has not ->select(['id','name']) then below
         // $categories = Category::with(['section' => function($query) {
         //     $query->select(['id','name']);
         // }])->get();
@@ -83,14 +83,15 @@ class CategoryController extends Controller
             $this->validate($request,$rules,$customMessages);
 
             if ($request->hasFile('category_image')) {
-                $iamge_tmp = $request->file('category_image');
-                if ($iamge_tmp->isValid()) {
-                    $extension = $iamge_tmp->getClientOriginalExtension();
+                $image_tmp = $request->file('category_image');
+                if ($image_tmp->isValid()) {
+                    $image_name = $image_tmp->getClientOriginalName();
+                    $extension = $image_tmp->getClientOriginalExtension();
 
-                    $imageName = rand(111,99999).'.'.$extension;
+                    $imageName = $image_name.'-'.rand(111,99999).'.'.$extension;
                     $iamgePath = 'images/category_images/'.$imageName;
 
-                    Image::make($iamge_tmp)->save($iamgePath);
+                    Image::make($image_tmp)->save($iamgePath);
                     $category->category_image = $imageName;
                 }
             }

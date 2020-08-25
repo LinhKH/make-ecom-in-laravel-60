@@ -14,13 +14,13 @@ class ProductsController extends Controller
 {
     public function products() {
         Session::put('page','products');
-        // if Product Model has ->select(['id','name']) then bellow
+        // if Product Model has ->select(['id','name']) then below
         $products = Product::with(['category','section'])->get();
 
         // $products = json_decode(json_encode($products),1);
         // echo "<pre>"; print_r($products);die;
 
-        // if Product Model has not ->select(['id','name']) then bellow
+        // if Product Model has not ->select(['id','name']) then below
         // $products = Product::with(['section' => function($query) {
         //     $query->select(['id','name']);
         // }])->get();
