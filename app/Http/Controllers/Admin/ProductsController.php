@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductsAttributes;
+use App\ProductsImage;
 use App\Section;
 use Image;
 use Session;
@@ -279,6 +280,15 @@ class ProductsController extends Controller
 
         $title = "Product Attributes";
         return view('admin.products.add_product_attribute')->with(compact('title','productDetail'));
+    }
+
+    public function addImages(Request $request, $id = null) {
+
+        $productDetail = Product::with('images')->find($id);
+        $productDetail = json_decode(json_encode($productDetail),1);
+        // echo "<pre>";print_r($productDetail);die;
+        $title = "Product Images";
+        return view('admin.products.add_images')->with(compact('title','productDetail'));
     }
 
     public function deleteProductAttributes($id) {
