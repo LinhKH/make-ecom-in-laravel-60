@@ -40,6 +40,9 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 
         // Attribute
         Route::match(['get', 'post'], 'add-attributes/{id?}', 'ProductsController@addAttributes');
+        Route::get('delete-product-attributes/{id}', 'ProductsController@deleteProductAttributes');
+
+        Route::post('show-product-attributes', 'ProductsController@showProductAttributes');
         
     });
 });

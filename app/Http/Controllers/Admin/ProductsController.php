@@ -175,6 +175,15 @@ class ProductsController extends Controller
         }
     }
 
+    public function showProductAttributes(Request $request) {
+        if($request->ajax()) {
+            $data = $request->all();
+            $results = ProductsAttributes::where(['status' => 1, 'id' => $data['attr_id']])->firstOrFail();
+
+            return response()->json(['data'=>$results]);
+        }
+    }
+
     public function deleteProductImage($id) {
         $productImage = Product::select('main_image')->where('id',$id)->first();
         // echo "<pre>";print_r(json_decode(json_encode($productImage),1));die;
@@ -221,7 +230,7 @@ class ProductsController extends Controller
     public function addAttributes(Request $request,$id = null) {
         if ($request->isMethod('post')) {
             $data = $request->all();
-
+            // echo "<pre>";print_r($data);die;
             if (!empty($data) && !empty($data['size']) && !empty($data['sku']) && !empty($data['price']) && !empty($data['stock'])) {
                 foreach ($data['sku'] as $key => $value) {
                     if (!empty($value)) {
@@ -230,23 +239,35 @@ class ProductsController extends Controller
                         if ($attrCountSku > 0) {
                             $flash_message = "Sku already exists. Please add another Sku!";
                             Session::flash('error_message', $flash_message);
+                            return redirect()->back();
                         }
                         // Size already exists check
                         $attrCountSize = ProductsAttributes::where(['size' => $data['size'][$key], 'product_id' => $id])->count();
                         if ($attrCountSize > 0) {
                             $flash_message = "Size already exists. Please add another Size!";
                             Session::flash('error_message', $flash_message);
+                            return redirect()->back();
                         }
-                        $attribute = new ProductsAttributes();
+
+                        if (!empty($data['id'][$key])) {
+                            $attribute = ProductsAttributes::find($data['id'][$key]);
+                        } else {
+                            $attribute = new ProductsAttributes();
+                        }
                         $attribute->product_id = $id;
                         $attribute->size = $data['size'][$key];
                         $attribute->sku = $data['sku'][$key];
                         $attribute->price = $data['price'][$key];
                         $attribute->stock = $data['stock'][$key];
                         $attribute->save();
+
+                    } else {
+                        $flash_message = "Sku is required!";
+                        Session::flash('error_message', $flash_message);
+                        return redirect()->back();
                     }
                 }
-                $flash_message = "Product Attributes has been added successfully!";
+                $flash_message = "Product Attributes has been added/updated successfully!";
                 Session::flash('success_message', $flash_message);
                 return redirect()->back();
             }
@@ -259,4 +280,13 @@ class ProductsController extends Controller
         $title = "Product Attributes";
         return view('admin.products.add_product_attribute')->with(compact('title','productDetail'));
     }
+
+    public function deleteProductAttributes($id) {
+        ProductsAttributes::where('id',$id)->delete();
+        $flash_message = "ProductsAttributes has been deleted successfully!";
+        Session::flash('success_message', $flash_message);
+        return redirect()->back();
+    }
+
+
 }

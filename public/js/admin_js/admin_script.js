@@ -144,6 +144,22 @@ $(document).ready(function () {
         x--;
     });
 
+    $(".editProductAttr").click(function() {
+        var attr_id = $(this).attr('data-id');
+        $.ajax({
+            type: 'post',
+            url: '/admin/show-product-attributes',
+            data: { status: 1, attr_id: attr_id },
+            success: function (resp) {
+                $("#id").val(resp['data']['id']);
+                $("#size").val(resp['data']['size']);
+                $("#sku").val(resp['data']['sku']);
+                $("#price").val(resp['data']['price']);
+                $("#stock").val(resp['data']['stock']);
+            }
+        });
+    })
+
 
 })
 
