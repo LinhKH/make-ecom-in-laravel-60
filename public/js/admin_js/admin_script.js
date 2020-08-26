@@ -125,7 +125,7 @@ $(document).ready(function () {
     var maxField = 10;
     var addButton = $('.add_button');
     var wrapper = $('.field_wrapper');
-    var fieldHTML = '<div style="margin-top:10px;"><input style="width:185px;" id="size" type="text" name="size[]" placeholder="Size" value=""/>&nbsp;<input style="width:185px;" id="sku" type="text" name="sku[]" placeholder="sku" value=""/>&nbsp;<input style="width:185px;" id="price" type="text" name="price[]" placeholder="price" value=""/>&nbsp;<input style="width:185px;" id="stock" type="text" name="stock[]" placeholder="stock" value=""/>&nbsp;<a href="javascript:void(0);" class="remove_button" title="Remove field">&nbsp;<i class="fas fa-minus"></i></a></div>';
+    var fieldHTML = '<div style="margin-top:10px;"><input style="width:185px;" id="size" type="text" name="size[]" placeholder="Size" value=""/>&nbsp;<input style="width:185px;" id="sku" type="text" name="sku[]" placeholder="sku" value=""/>&nbsp;<input style="width:185px;" id="price" type="number" min="1" name="price[]" placeholder="price" value=""/>&nbsp;<input style="width:185px;" id="stock" type="number" min="1" name="stock[]" placeholder="stock" value=""/>&nbsp;<a href="javascript:void(0);" class="remove_button" title="Remove field">&nbsp;<i class="fas fa-minus"></i></a></div>';
     var x = 1;
     
     //Once add button is clicked
@@ -143,6 +143,22 @@ $(document).ready(function () {
         $(this).parent('div').remove();
         x--;
     });
+
+    $(".editProductAttr").click(function() {
+        var attr_id = $(this).attr('data-id');
+        $.ajax({
+            type: 'post',
+            url: '/admin/show-product-attributes',
+            data: { status: 1, attr_id: attr_id },
+            success: function (resp) {
+                $("#id").val(resp['data']['id']);
+                $("#size").val(resp['data']['size']);
+                $("#sku").val(resp['data']['sku']);
+                $("#price").val(resp['data']['price']);
+                $("#stock").val(resp['data']['stock']);
+            }
+        });
+    })
 
 
 })

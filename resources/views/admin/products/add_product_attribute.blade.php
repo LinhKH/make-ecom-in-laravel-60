@@ -66,10 +66,11 @@
                                     <div class="form-group">
                                         <div class="field_wrapper">
                                             <div>
+                                                <input id="id" type="hidden" name="id[]" placeholder="id" value=""/>
                                                 <input style="width: 185px;" id="size" type="text" name="size[]" placeholder="Size" value=""/>
                                                 <input style="width: 185px;" id="sku" type="text" name="sku[]" placeholder="sku" value=""/>
-                                                <input style="width: 185px;" id="price" type="text" name="price[]" placeholder="price" value=""/>
-                                                <input style="width: 185px;" id="stock" type="text" name="stock[]" placeholder="stock" value=""/>
+                                                <input style="width: 185px;" id="price" type="number" name="price[]" min="1" placeholder="price" value=""/>
+                                                <input style="width: 185px;" id="stock" type="number" name="stock[]" min="1" placeholder="stock" value=""/>
                                                 <a href="javascript:void(0);" class="add_button" title="Add field">&nbsp;<i class="fas fa-plus"></i></a>
                                             </div>
                                         </div>
@@ -91,7 +92,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Added Product Attributes</h3>
-                                <a href="{{url('admin/add-edit-product')}}" style="max-width: 150px; float: right;display:inline-block" class="btn btn-block btn-success">Add Product</a>
+                                {{-- <a href="{{url('admin/add-edit-product')}}" style="max-width: 150px; float: right;display:inline-block" class="btn btn-block btn-success">Add Product</a> --}}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -115,8 +116,8 @@
                                             <td>{{ $attribute['price'] }}</td>
                                             <td>{{ $attribute['stock'] }}</td>
                                             <td align="center">
-                                                <a title="Edit Product Attibutes" href="{{ url('admin/add-edit-product/'.$attribute['id']) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; 
-                                                <a title="Delete Product Attibutes" class="confirmDelete" record="product" recordid="{{ $attribute['id'] }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product/'.$product['id']) }}" */ ?> ><i class="fas fa-trash"></i></a>
+                                                <a title="Edit Product Attibutes" class="editProductAttr" data-id="{{ $attribute['id'] }}" href="javascript:void(0)"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; 
+                                                <a title="Delete Product Attibutes" class="confirmDelete" record="product-attributes" recordid="{{ $attribute['id'] }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product-attributes/'.$attribute['id']) }}" */ ?> ><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
