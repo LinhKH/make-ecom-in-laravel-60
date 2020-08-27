@@ -73,6 +73,12 @@
                               </a>
                           </li>
                           <li class="nav-item">
+                              <a href="{{ url('/admin/brands') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'brands') active @endif">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Brands</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
                               <a href="{{ url('/admin/categories') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'categories') active @endif">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Categories</p>
