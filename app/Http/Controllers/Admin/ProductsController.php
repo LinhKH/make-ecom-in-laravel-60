@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ProductImage;
 use App\ProductsAttributes;
 use App\Section;
 use Image;
@@ -234,26 +235,28 @@ class ProductsController extends Controller
             if (!empty($data) && !empty($data['size']) && !empty($data['sku']) && !empty($data['price']) && !empty($data['stock'])) {
                 foreach ($data['sku'] as $key => $value) {
                     if (!empty($value)) {
-                        // SKU already exists check
-                        $attrCountSku = ProductsAttributes::where('sku',$value)->count();
-                        if ($attrCountSku > 0) {
-                            $flash_message = "Sku already exists. Please add another Sku!";
-                            Session::flash('error_message', $flash_message);
-                            return redirect()->back();
-                        }
-                        // Size already exists check
-                        $attrCountSize = ProductsAttributes::where(['size' => $data['size'][$key], 'product_id' => $id])->count();
-                        if ($attrCountSize > 0) {
-                            $flash_message = "Size already exists. Please add another Size!";
-                            Session::flash('error_message', $flash_message);
-                            return redirect()->back();
-                        }
 
                         if (!empty($data['id'][$key])) {
                             $attribute = ProductsAttributes::find($data['id'][$key]);
                         } else {
+                            // SKU already exists check
+                            $attrCountSku = ProductsAttributes::where('sku',$value)->count();
+                            if ($attrCountSku > 0) {
+                                $flash_message = "Sku already exists. Please add another Sku!";
+                                Session::flash('error_message', $flash_message);
+                                return redirect()->back();
+                            }
+                            // Size already exists check
+                            $attrCountSize = ProductsAttributes::where(['size' => $data['size'][$key], 'product_id' => $id])->count();
+                            if ($attrCountSize > 0) {
+                                $flash_message = "Size already exists. Please add another Size!";
+                                Session::flash('error_message', $flash_message);
+                                return redirect()->back();
+                            }
+
                             $attribute = new ProductsAttributes();
                         }
+                        
                         $attribute->product_id = $id;
                         $attribute->size = $data['size'][$key];
                         $attribute->sku = $data['sku'][$key];
@@ -281,9 +284,25 @@ class ProductsController extends Controller
         return view('admin.products.add_product_attribute')->with(compact('title','productDetail'));
     }
 
+    public function addImages(Request $request, $id = null) {
+
+        $productDetail = Product::with('images')->find($id);
+        $productDetail = json_decode(json_encode($productDetail),1);
+        // echo "<pre>";print_r($productDetail);die;
+        $title = "Product Images";
+        return view('admin.products.add_images')->with(compact('title','productDetail'));
+    }
+
     public function deleteProductAttributes($id) {
         ProductsAttributes::where('id',$id)->delete();
         $flash_message = "ProductsAttributes has been deleted successfully!";
+        Session::flash('success_message', $flash_message);
+        return redirect()->back();
+    }
+
+    public function deleteProductImages($id) {
+        ProductImage::where('id',$id)->delete();
+        $flash_message = "Products Images has been deleted successfully!";
         Session::flash('success_message', $flash_message);
         return redirect()->back();
     }

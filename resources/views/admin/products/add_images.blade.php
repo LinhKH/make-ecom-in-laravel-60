@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Products Attributes</h1>
+                        <h1>Products Images</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Products Attributes</li>
+                            <li class="breadcrumb-item active">Products Images</li>
                         </ol>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 
                 @include('layouts.partials.flash_message')
                 
-                <form name="productForm" id="productForm" action="{{ url('admin/add-attributes/'.$productDetail['id']) }}"
+                <form name="addImageForm" id="addImageForm" action="{{ url('admin/add-images/'.$productDetail['id']) }}"
                     method="post" enctype="multipart/form-data">@csrf
                     <div class="card card-default">
                         <div class="card-header">
@@ -64,16 +64,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="field_wrapper">
-                                            <div>
-                                                <input id="id" type="hidden" name="id[]" placeholder="id" value=""/>
-                                                <input style="width: 185px;" id="size" type="text" name="size[]" placeholder="Size" value=""/>
-                                                <input style="width: 185px;" id="sku" type="text" name="sku[]" placeholder="sku" value=""/>
-                                                <input style="width: 185px;" id="price" type="number" name="price[]" min="1" placeholder="price" value=""/>
-                                                <input style="width: 185px;" id="stock" type="number" name="stock[]" min="1" placeholder="stock" value=""/>
-                                                <a href="javascript:void(0);" class="add_button" title="Add field">&nbsp;<i class="fas fa-plus"></i></a>
-                                            </div>
-                                        </div>
+                                        <input type="file" multiple name="images[]" id="images" class="btn btn-primary" value="Add Images">
                                     </div>
                                 </div>
                                 <!-- /.col -->
@@ -91,7 +82,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Added Product Attributes</h3>
+                                <h3 class="card-title">Added Product Images</h3>
                                 {{-- <a href="{{url('admin/add-edit-product')}}" style="max-width: 150px; float: right;display:inline-block" class="btn btn-block btn-success">Add Product</a> --}}
                             </div>
                             <!-- /.card-header -->
@@ -100,35 +91,34 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Size</th>
-                                            <th>Sku</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
+                                            <th>Product ID</th>
+                                            <th>Image</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productDetail['attributes'] as $attribute)
+                                        @foreach ($productDetail['images'] as $image)
                                         <tr>
-                                            <td>{{ $attribute['id'] }}</td>
-                                            <td>{{ $attribute['size'] }}</td>
-                                            <td>{{ $attribute['sku'] }}</td>
-                                            <td>{{ $attribute['price'] }}</td>
-                                            <td>{{ $attribute['stock'] }}</td>
+                                            <td>{{ $image['id'] }}</td>
+                                            <td>{{ $image['product_id'] }}</td>
                                             <td align="center">
-                                                <a title="Edit Product Attibutes" class="editProductAttr" data-id="{{ $attribute['id'] }}" href="javascript:void(0)"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; 
-                                                <a title="Delete Product Attibutes" class="confirmDelete" record="product-attributes" recordid="{{ $attribute['id'] }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product-attributes/'.$attribute['id']) }}" */ ?> ><i class="fas fa-trash"></i></a>
+                                                <img src="{{ asset('images/product_images/small/'.$image['image']) }}" style="width: 120px;">
+                                            </td>
+                                            <td>{{ $image['status'] }}</td>
+                                            <td align="center">
+                                                <a title="Edit Product Image" class="editProductImage" data-id="{{ $image['id'] }}" href="javascript:void(0)"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; 
+                                                <a title="Delete Product Image" class="confirmDelete" record="product-images" recordid="{{ $image['id'] }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product-images/'.$image['id']) }}" */ ?> ><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Size</th>
-                                            <th>Sku</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
+                                        <th>ID</th>
+                                            <th>Product ID</th>
+                                            <th>Image</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </tfoot>

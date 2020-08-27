@@ -64,14 +64,6 @@
     <!-- DataTables -->
     <script src="{{ url('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script>
-        $(function () {
-            $("#sections").DataTable();
-            $("#categories").DataTable();
-            $("#products").DataTable();
-            $('.select2').select2()
-        });
-    </script>
     {{-- <script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script> --}}
     {{-- <script src="{{ url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script> --}}
     <!-- ChartJS -->
