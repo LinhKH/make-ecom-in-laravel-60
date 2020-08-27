@@ -176,6 +176,19 @@ class ProductsController extends Controller
         }
     }
 
+    public function updateProductImageStatus(Request $request) {
+        if($request->ajax()) {
+            $data = $request->all();
+            if($data['status'] == "Active") {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            ProductImage::where('id',$data['product_image_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status,'product_image_id'=>$data['product_image_id']]);
+        }
+    }
+
     public function showProductAttributes(Request $request) {
         if($request->ajax()) {
             $data = $request->all();
@@ -285,7 +298,37 @@ class ProductsController extends Controller
     }
 
     public function addImages(Request $request, $id = null) {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data);die;
 
+            if ($request->hasFile('images')) {
+                $images = $request->file('images');
+                // echo "<pre>"; print_r($images);die;
+                foreach ($images as $key => $image) {
+                    $productImage = new ProductImage();
+                    $image_tmp = Image::make($image);
+                    $originalName = $image->getClientOriginalName();
+                    $extension = $image->getClientOriginalExtension();
+                    $imageName = rand(111,999999).time().".".$extension;
+
+                    $large_image_path = 'images/product_images/large/'.$imageName;
+                    $medium_image_path = 'images/product_images/medium/'.$imageName;
+                    $small_image_path = 'images/product_images/small/'.$imageName;
+
+                    Image::make($image_tmp)->save($large_image_path);
+                    Image::make($image_tmp)->resize(520,600)->save($medium_image_path);
+                    Image::make($image_tmp)->resize(260,300)->save($small_image_path);
+
+                    $productImage->image = $imageName;
+                    $productImage->product_id = $id;
+                    $productImage->save();
+                }
+                $flash_message = "Products Images has been added successfully!";
+                Session::flash('success_message', $flash_message);
+                return redirect()->back();
+            }
+        }
         $productDetail = Product::with('images')->find($id);
         $productDetail = json_decode(json_encode($productDetail),1);
         // echo "<pre>";print_r($productDetail);die;

@@ -127,6 +127,23 @@ $(document).ready(function () {
         });
     });
 
+    $('.updateProductImagesStatus').click(function () {
+        var status = $(this).text();
+        var product_image_id = $(this).attr('product_image_id');
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-product-image-status',
+            data: { status: status, product_image_id: product_image_id },
+            success: function (resp) {
+                if (resp['status'] == 0) {
+                    $('#image-' + product_image_id).html("<a class='updateProductImagesStatus' href='javascript:void(0)'>Inactive</a>");
+                } else if (resp['status'] == 1) {
+                    $('#image-' + product_image_id).html("<a class='updateProductImagesStatus' href='javascript:void(0)'>Active</a>");
+                }
+            }
+        });
+    });
+
     var maxField = 10;
     var addButton = $('.add_button');
     var wrapper = $('.field_wrapper');
