@@ -1,13 +1,14 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+/** Admin Route */
 Route::prefix('/admin')->namespace('Admin')->group(function () {
     // All the admin routes will be defined here :-
     Route::get('/', 'AdminController@login');
@@ -57,5 +58,9 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::post('update-product-image-status', 'ProductsController@updateProductImageStatus');
         
     });
+});
+/** Front Route */
+Route::namespace('Front')->group(function() {
+    Route::get('/','IndexController@index');
 });
 
