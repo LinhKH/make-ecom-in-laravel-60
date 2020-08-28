@@ -17,6 +17,43 @@ class BrandController extends Controller
         return view('admin.brands.brands')->with(compact('brands'));
     }
 
+    public function addEditBrand(Request $request, $id = null) {
+        if(!$id) {
+            $title = "Add Brand";
+            $brand = new Brand;
+            $brandDetail = [];
+            $flash_message = "Brand added successfully";
+        } else {
+            $title = "Edit Brand";
+
+            $brandDetail = Brand::where('id',$id)->first();
+
+            $brandDetail = json_decode(json_encode($brandDetail),1);
+            // echo "<pre>"; print_r($brandDetail);die;
+            $brand = Brand::find($id);
+            $flash_message = "Brand updated successfully";
+        }
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            // Brand Validations
+            $rules = [
+                'name' => 'required',
+            ];
+            $customMessages = [
+                'name.required' => 'Name is required',
+            ];
+            $this->validate($request,$rules,$customMessages);
+
+            $brand->name = $data['name'];
+            $brand->save();
+
+            Session::flash('success_message', $flash_message);
+            return redirect('admin/brands');
+        }
+
+        return view('admin.brands.add_edit_brand')->with(compact('title','brandDetail'));
+    }
+
     public function updateBrandStatus(Request $request) {
         if($request->ajax()) {
             $data = $request->all();

@@ -30,6 +30,43 @@ class SectionController extends Controller
         }
     }
 
+    public function addEditSection(Request $request, $id = null) {
+        if(!$id) {
+            $title = "Add Section";
+            $section = new Section;
+            $sectionDetail = [];
+            $flash_message = "Section added successfully";
+        } else {
+            $title = "Edit Section";
+
+            $sectionDetail = Section::where('id',$id)->first();
+
+            $sectionDetail = json_decode(json_encode($sectionDetail),1);
+            // echo "<pre>"; print_r($sectionDetail);die;
+            $section = Section::find($id);
+            $flash_message = "Section updated successfully";
+        }
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            // Section Validations
+            $rules = [
+                'name' => 'required',
+            ];
+            $customMessages = [
+                'name.required' => 'Name is required',
+            ];
+            $this->validate($request,$rules,$customMessages);
+
+            $section->name = $data['name'];
+            $section->save();
+
+            Session::flash('success_message', $flash_message);
+            return redirect('admin/brands');
+        }
+
+        return view('admin.sections.add_edit_section')->with(compact('title','sectionDetail'));
+    }
+
     public function deleteSection($id) {
         Section::where('id',$id)->delete();
         $flash_message = "Section has been deleted successfully!";

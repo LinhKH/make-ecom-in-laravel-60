@@ -3,6 +3,7 @@ $(document).ready(function () {
     $("#sections").DataTable();
     $("#categories").DataTable();
     $("#products").DataTable();
+    $("#brands").DataTable();
     $('.select2').select2()
 
     $('#current_pwd').keyup(function () {

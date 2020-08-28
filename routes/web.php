@@ -19,11 +19,13 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 
         // Sections 
         Route::match(['get', 'post'], '/sections', 'SectionController@sections');
+        Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@addEditSection');
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
         Route::get('delete-section/{id}', 'SectionController@deleteSection');
 
         // Brand
         Route::match(['get', 'post'], '/brands', 'BrandController@brands');
+        Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@addEditBrand');
         Route::post('update-brand-status', 'BrandController@updateBrandStatus');
         Route::get('delete-brand/{id}', 'BrandController@deleteSection');
         
