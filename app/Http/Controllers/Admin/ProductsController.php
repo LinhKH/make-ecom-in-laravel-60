@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Brand;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -57,6 +58,10 @@ class ProductsController extends Controller
         // Sections with Categories and Sub Categories
         $categories = Section::with('categories')->get();
         $categories = json_decode(json_encode($categories),1);
+
+        // Brands
+        $brands = Brand::get();
+        $brands = json_decode(json_encode($brands),1);
 
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -136,6 +141,7 @@ class ProductsController extends Controller
 
             $product->category_id = $data['category_id'];
             $product->section_id = $categoryDetail['section_id'];
+            $product->brand_id = $data['brand_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
@@ -160,7 +166,7 @@ class ProductsController extends Controller
             return redirect('admin/products');
         }
 
-        return view('admin.products.add_edit_product')->with(compact('title','productDetail','arrFabric','arrSleeve','arrPattern','arrFit','arrOccasion','categories'));
+        return view('admin.products.add_edit_product')->with(compact('title','productDetail','arrFabric','arrSleeve','arrPattern','arrFit','arrOccasion','categories','brands'));
     }
 
     public function updateProductStatus(Request $request) {

@@ -44,6 +44,7 @@
                                             <th>Product Image</th>
                                             <th>Category</th>
                                             <th>Section</th>
+                                            <th>Brand</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
@@ -65,6 +66,7 @@
                                             </td>
                                             <td>{{ $product->category->category_name }}</td>
                                             <td>{{ $product->section->name }}</td>
+                                            <td>{{ $product->brand->name }}</td>
                                             <td>
                                                 @if ($product->status == 1)
                                                     <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)"><i class="fa fa-toggle-on fa-2x" aria-hidden="true" status="Active"></i></a>
@@ -90,6 +92,7 @@
                                             <th>Product Image</th>
                                             <th>Category</th>
                                             <th>Section</th>
+                                            <th>Brand</th>
                                             <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
