@@ -26,7 +26,7 @@
 <body>
 @include('layouts.front_layout.front_header')
 <!-- Header End====================================================================== -->
-@if (isset($page_name) && $page_name =='listing')
+@if (isset($page_name) && $page_name =='index')
     <div id="carouselBlk">
         <div id="myCarousel" class="carousel slide">
             <div class="carousel-inner">
