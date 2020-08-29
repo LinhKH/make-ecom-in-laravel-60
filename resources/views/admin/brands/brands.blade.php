@@ -56,7 +56,7 @@
                                                     @else
                                                         <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
                                                             brand_id="{{ $brand['id'] }}"
-                                                            href="javascript:void(0)"><i class="fa fa-toggle-off fa-2x" aria-hidden="true" status="Inactive"></i></a>
+                                                            href="javascript:void(0)"><i style='color:red' class="fa fa-toggle-off fa-2x" aria-hidden="true" status="Inactive"></i></a>
                                                     @endif
                                                 </td>
                                                 <td align="center">

@@ -63,7 +63,7 @@
                                                 @if ($category->status == 1)
                                                     <a class="updateCategoryStatus" id="category-{{$category->id}}" category_id="{{$category->id}}" href="javascript:void(0)"><i class="fa fa-toggle-on fa-2x" aria-hidden="true" status="Active"></i></a>
                                                 @else
-                                                    <a class="updateCategoryStatus" id="category-{{$category->id}}" category_id="{{$category->id}}" href="javascript:void(0)"><i class="fa fa-toggle-off fa-2x" aria-hidden="true" status="Inactive"></i></a>
+                                                    <a class="updateCategoryStatus" id="category-{{$category->id}}" category_id="{{$category->id}}" href="javascript:void(0)"><i style='color:red' class="fa fa-toggle-off fa-2x" aria-hidden="true" status="Inactive"></i></a>
                                                 @endif
                                             </td>
                                             <td align="center">

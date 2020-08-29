@@ -71,7 +71,7 @@
                                                 @if ($product->status == 1)
                                                     <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)"><i class="fa fa-toggle-on fa-2x" aria-hidden="true" status="Active"></i></a>
                                                 @else
-                                                    <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)"><i class="fa fa-toggle-off fa-2x" aria-hidden="true" status="Inactive"></i></a>
+                                                    <a class="updateProductStatus" id="product-{{$product->id}}" product_id="{{$product->id}}" href="javascript:void(0)"><i style='color:red' class="fa fa-toggle-off fa-2x" aria-hidden="true" status="Inactive"></i></a>
                                                 @endif
                                             </td>
                                             <td align="center">

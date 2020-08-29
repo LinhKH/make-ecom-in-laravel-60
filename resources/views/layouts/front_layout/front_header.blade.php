@@ -27,7 +27,7 @@
                         <a class="brand" href="#">Stack Developers</a>
                         <div class="nav-collapse">
                             <ul class="nav">
-                                <li class="active"><a href="#">Home</a></li>
+                                <li class="active"><a href="{{ url('/') }}">Home</a></li>
                                 @foreach ($sections as $section)
                                 @if ($section['categories'])
                                     <li class="dropdown">
