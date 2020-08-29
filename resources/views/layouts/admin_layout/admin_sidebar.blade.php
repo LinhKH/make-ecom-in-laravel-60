@@ -67,6 +67,12 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
+                              <a href="{{ url('/admin/banners') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'banners') active @endif">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Banners</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
                               <a href="{{ url('/admin/sections') }}" class="nav-link @if (Session::has('page') && Session::get('page') == 'sections') active @endif">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Sections</p>

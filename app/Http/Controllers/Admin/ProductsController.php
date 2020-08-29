@@ -227,6 +227,28 @@ class ProductsController extends Controller
         return redirect()->back();
     }
 
+    public function deleteProductImageTable($id) {
+        $productImages = ProductImage::select('image')->where(['product_id' => $id, 'status' => 1])->get()->toArray();
+        // echo "<pre>";print_r(json_decode(json_encode($productImage),1));die;
+        $small_image_path = 'images/product_images/small/';
+        $medium_image_path = 'images/product_images/medium/';
+        $large_image_path = 'images/product_images/large/';
+
+        foreach ($productImages as $key => $productImage) {
+            if (file_exists($small_image_path.$productImage['image']) && !empty($productImage['image'])) {
+                unlink($small_image_path.$productImage['image']);
+            }
+            if (file_exists($medium_image_path.$productImage['image']) && !empty($productImage['image'])) {
+                unlink($medium_image_path.$productImage['image']);
+            }
+            if (file_exists($large_image_path.$productImage['image']) && !empty($productImage['image'])) {
+                unlink($large_image_path.$productImage['image']);
+            }
+        }
+        ProductImage::where(['product_id' => $id, 'status' => 1])->update(['image'=> '']);
+        
+    }
+
     public function deleteProductVideo($id) {
         $productVideo = Product::select('product_video')->where('id',$id)->first();
         $product_video_path = 'videos/product_videos/';
@@ -241,7 +263,10 @@ class ProductsController extends Controller
     }
 
     public function deleteProduct($id) {
+        $this->deleteProductImage($id);
+        $this->deleteProductImageTable($id);
         Product::where('id',$id)->delete();
+        Product::where('product_id',$id)->delete();
         $flash_message = "Product has been deleted successfully!";
         Session::flash('success_message', $flash_message);
         return redirect()->back();

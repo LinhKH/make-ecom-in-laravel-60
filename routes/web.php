@@ -24,11 +24,18 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
         Route::get('delete-section/{id}', 'SectionController@deleteSection');
 
+        // Banner
+        Route::match(['get', 'post'], '/banners', 'BannerController@banners');
+        Route::match(['get', 'post'], 'add-edit-banner/{id?}', 'BannerController@addEditBanner');
+        Route::post('update-banner-status', 'BannerController@updateBannerStatus');
+        Route::get('delete-banner/{id}', 'BannerController@deleteBanner');
+        Route::get('delete-banner-image/{id}', 'BannerController@deleteBannerImage');
+
         // Brand
         Route::match(['get', 'post'], '/brands', 'BrandController@brands');
         Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@addEditBrand');
         Route::post('update-brand-status', 'BrandController@updateBrandStatus');
-        Route::get('delete-brand/{id}', 'BrandController@deleteSection');
+        Route::get('delete-brand/{id}', 'BrandController@deleteBrand');
         
         // Categories
         Route::get('categories', 'CategoryController@categories');

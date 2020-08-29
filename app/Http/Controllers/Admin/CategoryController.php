@@ -142,6 +142,7 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory($id) {
+        $this->deleteCategoryImage($id);
         Category::where('id',$id)->delete();
         $flash_message = "Category has been deleted successfully!";
         Session::flash('success_message', $flash_message);

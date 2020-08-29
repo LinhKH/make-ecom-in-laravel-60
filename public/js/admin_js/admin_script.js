@@ -4,6 +4,7 @@ $(document).ready(function () {
     $("#categories").DataTable();
     $("#products").DataTable();
     $("#brands").DataTable();
+    $("#banners").DataTable();
     $('.select2').select2()
 
     $('#current_pwd').keyup(function () {
@@ -92,6 +93,23 @@ $(document).ready(function () {
                 window.location.href = "/admin/delete-"+record+"/"+recordid;
             }
         })
+    });
+
+    $('.updateBannerstatus').click(function () {
+        var status = $(this).children("i").attr('status');
+        var banner_id = $(this).attr('banner_id');
+        $.ajax({
+            type: 'post',
+            url: '/admin/update-banner-status',
+            data: { status: status, banner_id: banner_id },
+            success: function (resp) {
+                if (resp['status'] == 0) {
+                    $('#banner-' + banner_id).html("<i style='color:red' class='fa fa-toggle-off fa-2x' aria-hidden='true' status='Inactive'></i>");
+                } else if (resp['status'] == 1) {
+                    $('#banner-' + banner_id).html("<i class='fa fa-toggle-on fa-2x' aria-hidden='true' status='Active'></i>");
+                }
+            }
+        });
     });
 
     $('.updateBrandStatus').click(function () {

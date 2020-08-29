@@ -98,26 +98,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productDetail['images'] as $image)
-                                        <tr>
-                                            <td>{{ $image['id'] }}</td>
-                                            <td>{{ $image['product_id'] }}</td>
-                                            <td align="center">
-                                                <img src="{{ asset('images/product_images/small/'.$image['image']) }}" style="width: 120px;">
-                                            </td>
-                                            <td>
-                                                @if ($image['status'] == 1)
-                                                    <a class="updateProductImagesStatus" id="image-{{$image['id']}}" product_image_id="{{$image['id']}}" href="javascript:void(0)">Active</a>
-                                                @else
-                                                    <a class="updateProductImagesStatus" id="image-{{$image['id']}}" product_image_id="{{$image['id']}}" href="javascript:void(0)">Inactive</a>
-                                                @endif
-                                            </td>
-                                            <td align="center">
-                                                <a title="Edit Product Image" class="editProductImage" data-id="{{ $image['id'] }}" href="javascript:void(0)"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; 
-                                                <a title="Delete Product Image" class="confirmDelete" record="product-images" recordid="{{ $image['id'] }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product-images/'.$image['id']) }}" */ ?> ><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
+                                        @if ($productDetail['images'])
+                                            @foreach ($productDetail['images'] as $image)
+                                            <tr>
+                                                <td>{{ $image['id'] }}</td>
+                                                <td>{{ $image['product_id'] }}</td>
+                                                <td align="center">
+                                                    <img src="{{ asset('images/product_images/small/'.$image['image']) }}" style="width: 120px;">
+                                                </td>
+                                                <td>
+                                                    @if ($image['status'] == 1)
+                                                        <a class="updateProductImagesStatus" id="image-{{$image['id']}}" product_image_id="{{$image['id']}}" href="javascript:void(0)">Active</a>
+                                                    @else
+                                                        <a class="updateProductImagesStatus" id="image-{{$image['id']}}" product_image_id="{{$image['id']}}" href="javascript:void(0)">Inactive</a>
+                                                    @endif
+                                                </td>
+                                                <td align="center">
+                                                    <a title="Edit Product Image" class="editProductImage" data-id="{{ $image['id'] }}" href="javascript:void(0)"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; 
+                                                    <a title="Delete Product Image" class="confirmDelete" record="product-images" recordid="{{ $image['id'] }}" href="javascript:void(0)" <?php /* href="{{ url('admin/delete-product-images/'.$image['id']) }}" */ ?> ><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                     <tfoot>
                                         <tr>

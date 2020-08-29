@@ -67,7 +67,7 @@ class BrandController extends Controller
         }
     }
 
-    public function deleteSection($id) {
+    public function deleteBrand($id) {
         Brand::where('id',$id)->delete();
         $flash_message = "Brand has been deleted successfully!";
         Session::flash('success_message', $flash_message);
