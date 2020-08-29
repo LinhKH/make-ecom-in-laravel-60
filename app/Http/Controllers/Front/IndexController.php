@@ -13,6 +13,7 @@ class IndexController extends Controller
 
         $featuredItems = Product::where('is_featured','Yes')->get()->toArray();
         $featuredItemsChunk = array_chunk($featuredItems,4);
+        // dd($featuredItemsChunk);
 
         return view('front.index')->with(compact('page_name','featuredItemsChunk'));
     }
