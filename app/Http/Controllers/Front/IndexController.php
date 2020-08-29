@@ -11,10 +11,14 @@ class IndexController extends Controller
     public function index() {
         $page_name = "index";
 
+        $featuredItemsCount = Product::where('is_featured','Yes')->count();
         $featuredItems = Product::where('is_featured','Yes')->get()->toArray();
         $featuredItemsChunk = array_chunk($featuredItems,4);
         // dd($featuredItemsChunk);
 
-        return view('front.index')->with(compact('page_name','featuredItemsChunk'));
+        // Get Lastest Products
+        $lastestProducts = Product::orderBy('id','desc')->limit(6)->get()->toArray();
+
+        return view('front.index')->with(compact('page_name','featuredItemsChunk','lastestProducts','featuredItemsCount'));
     }
 }
