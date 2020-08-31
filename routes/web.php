@@ -17,6 +17,10 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::get('dashboard', 'AdminController@dashboard');
         Route::get('settings', 'AdminController@settings');
         Route::get('logout', 'AdminController@logout');
+        Route::post('check-current-password', 'AdminController@checkCurrentPassword');
+        Route::post('update-current-password', 'AdminController@updateCurrentPassword');
+        Route::match(['get','post'],'update-admin-detail', 'AdminController@updateAdminDetail');
+        Route::get('delete-admin-image/{id}', 'AdminController@deleteAdminDetailImage');
 
         // Sections 
         Route::match(['get', 'post'], '/sections', 'SectionController@sections');

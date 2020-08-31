@@ -7,17 +7,17 @@ $(document).ready(function () {
     $("#banners").DataTable();
     $('.select2').select2()
 
-    $('#current_pwd').keyup(function () {
-        var current_pwd = $('#current_pwd').val();
+    $('#current_password').keyup(function () {
+        var current_password = $('#current_password').val();
         $.ajax({
             type: 'post',
-            url: '/admin/check-current-pwd',
-            data: { current_pwd: current_pwd },
+            url: '/admin/check-current-password',
+            data: { current_password: current_password },
             success: function (resp) {
                 if (resp == 'false') {
-                    $('#chkCurrendPwd').html("<font color=red>Current Password is incorect</font>");
+                    $('#chkCurrentPwd').html("<font color=red>Current Password is incorect</font>");
                 } else if (resp == 'true') {
-                    $('#chkCurrendPwd').html("<font color=greem>Current Password is corect</font>");
+                    $('#chkCurrentPwd').html("<font color=green>Current Password is corect</font>");
                 }
             }, error: function (e) {
                 console.log("Error", e);
