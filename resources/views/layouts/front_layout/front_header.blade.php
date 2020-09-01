@@ -1,8 +1,3 @@
-<?php 
-    use App\Section;
-    $sections = Section::sections();
-?>
-
 <div id="header">
     <div class="container">
         <div id="welcomeLine" class="row">
@@ -24,25 +19,25 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <a class="brand" href="{{ url('/') }}">Stack Developers</a>
+                        <a class="brand" href="{{ url('/') }}">E-Shop</a> 
                         <div class="nav-collapse">
                             <ul class="nav">
                                 <li class="active"><a href="{{ url('/') }}">Home</a></li>
-                                @foreach ($sections as $section)
-                                @if ($section['categories'])
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $section['name'] }} <b class="caret"></b></a>
-                                        <ul class="dropdown-menu">
-                                            @foreach ($section['categories'] as $category)
-                                                <li class="divider"></li>
-                                                <li class="nav-header"><a href="#">{{ $category['category_name'] }}</a></li>
-                                                @foreach ($category['subcategories'] as $subcategory)
-                                                    <li><a href="#">&nbsp;&nbsp;{{ $subcategory['category_name'] }}</a></li>
+                                @foreach ($frontSidebars as $section)
+                                    @if ($section['categories'])
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $section['name'] }} <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                @foreach ($section['categories'] as $category)
+                                                    <li class="divider"></li>
+                                                    <li class="nav-header"><a href="{{ url('/'.$category['url']) }}">{{ $category['category_name'] }}</a></li>
+                                                    @foreach ($category['subcategories'] as $subcategory)
+                                                        <li><a href="{{ url('/'.$subcategory['url']) }}">&nbsp;&nbsp;{{ $subcategory['category_name'] }}</a></li>
+                                                    @endforeach
                                                 @endforeach
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endif
+                                            </ul>
+                                        </li>
+                                    @endif
                                 @endforeach
 
                                 <li><a href="#">About</a></li>

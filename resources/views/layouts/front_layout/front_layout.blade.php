@@ -26,15 +26,11 @@
 <body>
 @include('layouts.front_layout.front_header')
 <!-- Header End====================================================================== -->
-<?php 
-    use App\Banner;
-    $banners = Banner::where('status',1)->get();
-?>
 @if (isset($page_name) && $page_name =='index')
     <div id="carouselBlk">
         <div id="myCarousel" class="carousel slide">
             <div class="carousel-inner">
-                @foreach ($banners as $key => $banner)
+                @foreach ($frontBanners as $key => $banner)
                     <div class="item @if($key==1) actove @endif">
                         <div class="container">
                             <a href="{{ $banner['link'] }}"><img style="width:100%" src="{{ asset('images/banner_images/'.$banner['image'] ) }}" alt="special offers"/></a>
