@@ -55,4 +55,15 @@ $(document).ready(function(){
 		}
 	});
 
+	// Customs Front Js here :^^
+	$(".clslistView").click(function() {
+		$("#myTab .clslistView").addClass('btn-primary');
+		$("#myTab .clsblockView").removeClass('btn-primary');
+	});
+	
+	$(".clsblockView").click(function() {
+		$("#myTab .clsblockView").addClass('btn-primary');
+		$("#myTab .clslistView").removeClass('btn-primary');
+    });
+
 });

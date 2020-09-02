@@ -31,7 +31,7 @@
         <div id="myCarousel" class="carousel slide">
             <div class="carousel-inner">
                 @foreach ($frontBanners as $key => $banner)
-                    <div class="item @if($key==1) actove @endif">
+                    <div class="item @if($key==1) active @endif">
                         <div class="container">
                             <a href="{{ $banner['link'] }}"><img style="width:100%" src="{{ asset('images/banner_images/'.$banner['image'] ) }}" alt="special offers"/></a>
                             <div class="carousel-caption">

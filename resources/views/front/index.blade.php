@@ -14,7 +14,7 @@
                             <li class="span3">
                                 <div class="thumbnail">
                                     <i class="tag"></i>
-                                    <a href="product_details.html">
+                                    <a href="{{url('product/'.$item['id'])}}">
                                         <?php $product_image_path = 'images/product_images/small/'.$item['main_image']; ?>
                                         @if ($item['main_image'] && file_exists($product_image_path))
                                             <img src="{{ asset('images/product_images/small/'.$item['main_image']) }}" alt="">
@@ -24,7 +24,7 @@
                                     </a>
                                     <div class="caption">
                                         <h5>{{ $item['product_name'] }}</h5>
-                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.{{ $item['product_price'] }}</span></h4>
+                                        <h4><a class="btn" href="{{url('product/'.$item['id'])}}">VIEW</a> <span class="pull-right">Rs.{{ $item['product_price'] }}</span></h4>
                                     </div>
                                 </div>
                             </li>
@@ -45,7 +45,7 @@
         @foreach ($lastestProducts as $lastestProduct)
         <li class="span3">
             <div class="thumbnail">
-                <a href="product_details.html">
+                <a href="{{url('product/'.$lastestProduct['id'])}}">
                     <?php $product_image_path = 'images/product_images/large/'.$lastestProduct['main_image']; ?>
                     @if ($lastestProduct['main_image'] && file_exists($product_image_path))
                         <img src="{{ asset('images/product_images/large/'.$lastestProduct['main_image']) }}" alt="">
@@ -59,7 +59,7 @@
                         {{ $lastestProduct['product_code'] }} ({{ $lastestProduct['product_color'] }})
                     </p>
 
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
+                    <h4 style="text-align:center"><a class="btn" href="{{url('product/'.$lastestProduct['id'])}}"> <i
                                 class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
                                 class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.{{ $lastestProduct['product_price'] }}</a></h4>
                 </div>

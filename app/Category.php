@@ -34,6 +34,6 @@ class Category extends Model
             $catIds[] = $subcat['id'];
         }
 
-        return ['catIds' => $catIds, 'categoryDetails' => $categoryDetails];
+        return ['catIds' => $catIds, 'cat_details' => $categoryDetails];
     }
 }

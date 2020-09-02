@@ -8,9 +8,9 @@
                 <li class="subMenu"><a>{{ $section['name'] }}</a>
                     @foreach ($section['categories'] as $category)
                         <ul>
-                        <li><a href="{{ url('/'.$category['url']) }}"><i class="icon-chevron-right"></i><strong>{{ $category['category_name'] }}</strong></a></li>
+                        <li><a href="{{ url('product/'.$category['url']) }}"><i class="icon-chevron-right"></i><strong>{{ $category['category_name'] }}</strong></a></li>
                             @foreach ($category['subcategories'] as $subcategory)
-                                <li><a style="padding-left: 25px;" href="{{ url('/'.$subcategory['url']) }}"><i class="icon-chevron-right"></i>{{ $subcategory['category_name'] }}</a></li>
+                                <li><a style="padding-left: 25px;" href="{{ url('product/'.$subcategory['url']) }}"><i class="icon-chevron-right"></i>{{ $subcategory['category_name'] }}</a></li>
                             @endforeach
                         </ul>
                     @endforeach

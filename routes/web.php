@@ -73,6 +73,11 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
 /** Front Route */
 Route::namespace('Front')->group(function() {
     Route::get('/','IndexController@index');
-    Route::get('/{url}','ProductsController@listing');
+
+    // Product Detail Page
+    // Route::get('product/{id}','ProductsController@product');
+
+    // Category/Listing Page
+    Route::get('product/{url}','ProductsController@listing');
 });
 

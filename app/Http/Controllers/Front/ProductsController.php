@@ -11,7 +11,7 @@ class ProductsController extends Controller
 {
     public function listing($url)
     {
-        $categoryCount = Category::where(['url' => $url,'status'=>1])->count();
+        $categoryCount = Category::where(['url' => $url, 'status' => 1])->count();
         if ($categoryCount > 0) {
 
             /** case 1 */
@@ -27,12 +27,14 @@ class ProductsController extends Controller
             // $products = json_decode(json_encode($products),1);
             // echo "<pre>"; print_r($products);die;
 
-             /** case 2 */
-             $categoryDetails = Category::categorysDetail($url);
+            /** case 2 */
+            $categoryDetails = Category::categorysDetail($url);
 
-             dd($categoryDetails);
+            $categoryProducts = Product::whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->get()->toArray();
 
+            // echo "<pre>"; print_r($categoryDetails);die;
 
+            return view('front.listing')->with(compact('categoryProducts','categoryDetails'));
         } else {
             abort(404);
         }
