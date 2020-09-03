@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Banner;
 use App\Http\Controllers\Controller;
+use App\Upload;
 use Illuminate\Http\Request;
 use Session;
 use Image;
@@ -57,8 +58,11 @@ class BannerController extends Controller
                     $extension = $image_tmp->getClientOriginalExtension();
 
                     $imageName = $image_name.'-'.rand(111,99999).'.'.$extension;
+                    
+                    $spath = public_path()."/images/banner_images/";
+                    Upload::create_folder($spath);
 
-                    $image_path = 'images/banner_images/'.$imageName;
+                    $image_path = $spath.$imageName;
 
                     Image::make($image_tmp)->resize(1170,480)->save($image_path);
 

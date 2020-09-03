@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Section;
+use App\Upload;
 use Session;
 use Image;
 
@@ -89,7 +90,11 @@ class CategoryController extends Controller
                     $extension = $image_tmp->getClientOriginalExtension();
 
                     $imageName = $image_name.'-'.rand(111,99999).'.'.$extension;
-                    $iamgePath = 'images/category_images/'.$imageName;
+
+                    $spath = public_path()."/images/category_images/";
+                    Upload::create_folder($spath);
+
+                    $iamgePath = $spath.$imageName;
 
                     Image::make($image_tmp)->save($iamgePath);
                     $category->category_image = $imageName;
