@@ -30,11 +30,15 @@ class ProductsController extends Controller
             /** case 2 */
             $categoryDetails = Category::categorysDetail($url);
 
+            $productCount = Product::whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->count();
             $categoryProducts = Product::whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->get()->toArray();
 
             // echo "<pre>"; print_r($categoryDetails);die;
 
-            return view('front.listing')->with(compact('categoryProducts','categoryDetails'));
+            $meta_title = $categoryProducts->meta_title;
+            $meta_description = $categoryProducts->meta_description;
+            $meta_keywords = $categoryProducts->meta_keywords;
+            return view('front.listing')->with(compact('categoryProducts','productCount','categoryDetails','meta_title','meta_description','meta_keywords'));
         } else {
             abort(404);
         }

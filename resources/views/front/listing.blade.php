@@ -6,7 +6,7 @@
             <li><a href="index.html">Home</a> <span class="divider">/</span></li>
             <li class="active">{{ $categoryDetails['cat_details']['category_name'] }}</li>
         </ul>
-        <h3> {{ $categoryDetails['cat_details']['category_name'] }} <small class="pull-right"> 40 products are available </small></h3>
+        <h3> {{ $categoryDetails['cat_details']['category_name'] }} <small class="pull-right"> {{ $productCount }} products are available </small></h3>
         <hr class="soft" />
         <form class="form-horizontal span6">
             <div class="control-group">
