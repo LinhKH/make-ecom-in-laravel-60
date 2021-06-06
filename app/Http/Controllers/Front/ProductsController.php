@@ -30,13 +30,24 @@ class ProductsController extends Controller
             /** case 2 */
             $categoryDetails = Category::categorysDetail($url);
 
-            $categoryProducts = Product::whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->get()->toArray();
+            $productCount = Product::whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->count();
+            $categoryProducts = Product::whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->paginate(3);
 
-            // echo "<pre>"; print_r($categoryDetails);die;
-
-            return view('front.listing')->with(compact('categoryProducts','categoryDetails'));
+            $meta_title = $categoryProducts['meta_title'];
+            $meta_description = $categoryProducts['meta_description'];
+            $meta_keywords = $categoryProducts['meta_keywords'];
+            return view('front.listing')->with(compact('categoryProducts', 'productCount', 'categoryDetails', 'meta_title', 'meta_description', 'meta_keywords'));
         } else {
             abort(404);
+        }
+    }
+
+    function fetch_data(Request $request)
+    {
+        if ($request->ajax()) {
+            $categoryDetails = Category::categorysDetail($request->slug);
+            $categoryProducts = Product::whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->paginate(3);
+            return view('front.pagination_data', compact('categoryProducts'))->render();
         }
     }
 }

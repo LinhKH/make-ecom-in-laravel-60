@@ -9,6 +9,7 @@ use App\Product;
 use App\ProductImage;
 use App\ProductsAttributes;
 use App\Section;
+use App\Upload;
 use Image;
 use Session;
 use Illuminate\Http\Request;
@@ -99,9 +100,16 @@ class ProductsController extends Controller
 
                     $imageName = $image_name.'-'.rand(111,99999).'.'.$extension;
 
-                    $large_image_path = 'images/product_images/large/'.$imageName;
-                    $medium_image_path = 'images/product_images/medium/'.$imageName;
-                    $small_image_path = 'images/product_images/small/'.$imageName;
+                    $spath_large_image = public_path()."/images/product_images/large/";
+                    $spath_medium_image = public_path()."/images/product_images/medium/";
+                    $spath_small_image = public_path()."/images/product_images/small/";
+                    Upload::create_folder($spath_large_image);
+                    Upload::create_folder($spath_medium_image);
+                    Upload::create_folder($spath_small_image);
+
+                    $large_image_path = $spath_large_image.$imageName;
+                    $medium_image_path = $spath_medium_image.$imageName;
+                    $small_image_path = $spath_small_image.$imageName;
 
                     Image::make($image_tmp)->save($large_image_path);
                     Image::make($image_tmp)->resize(520,600)->save($medium_image_path);
@@ -343,9 +351,16 @@ class ProductsController extends Controller
                     $extension = $image->getClientOriginalExtension();
                     $imageName = rand(111,999999).time().".".$extension;
 
-                    $large_image_path = 'images/product_images/large/'.$imageName;
-                    $medium_image_path = 'images/product_images/medium/'.$imageName;
-                    $small_image_path = 'images/product_images/small/'.$imageName;
+                    $spath_large_image = public_path()."/images/product_images/large/";
+                    $spath_medium_image = public_path()."/images/product_images/medium/";
+                    $spath_small_image = public_path()."/images/product_images/small/";
+                    Upload::create_folder($spath_large_image);
+                    Upload::create_folder($spath_medium_image);
+                    Upload::create_folder($spath_small_image);
+
+                    $large_image_path = $spath_large_image.$imageName;
+                    $medium_image_path = $spath_medium_image.$imageName;
+                    $small_image_path = $spath_small_image.$imageName;
 
                     Image::make($image_tmp)->save($large_image_path);
                     Image::make($image_tmp)->resize(520,600)->save($medium_image_path);

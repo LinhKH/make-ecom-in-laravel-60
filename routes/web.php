@@ -78,6 +78,7 @@ Route::namespace('Front')->group(function() {
     // Route::get('product/{id}','ProductsController@product');
 
     // Category/Listing Page
-    Route::get('product/{url}','ProductsController@listing');
+    Route::get('product/{url}',[\App\Http\Controllers\Front\ProductsController::class,'listing']);
+    Route::get('pagination/fetch_data', [\App\Http\Controllers\Front\ProductsController::class,'fetch_data']);
 });
 

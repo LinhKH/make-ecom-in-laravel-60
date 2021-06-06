@@ -6,7 +6,8 @@
             <li><a href="index.html">Home</a> <span class="divider">/</span></li>
             <li class="active">{{ $categoryDetails['cat_details']['category_name'] }}</li>
         </ul>
-        <h3> {{ $categoryDetails['cat_details']['category_name'] }} <small class="pull-right"> 40 products are available </small></h3>
+        <h3> {{ $categoryDetails['cat_details']['category_name'] }} <small class="pull-right"> {{ $productCount }} products
+                are available </small></h3>
         <hr class="soft" />
         <form class="form-horizontal span6">
             <div class="control-group">
@@ -21,88 +22,20 @@
         </form>
 
         <div id="myTab" class="pull-right">
-            <a href="#listView" data-toggle="tab"><span class="clslistView btn btn-large"><i class="icon-list"></i></span></a>
+            <a href="#listView" data-toggle="tab"><span class="clslistView btn btn-large"><i
+                        class="icon-list"></i></span></a>
             <a href="#blockView" data-toggle="tab"><span class="clsblockView btn btn-large btn-primary"><i
                         class="icon-th-large"></i></span></a>
         </div>
         <br class="clr" />
-        <div class="tab-content">
-            <div class="tab-pane" id="listView">
-                @foreach ($categoryProducts as $product)
-                    <div class="row">
-                        <div class="span2">
-                            <img src="{{ asset('images/product_images/small/'.$product['main_image']) }}" alt="" />
-                        </div>
-                        <div class="span4">
-                            <h3>New | Available</h3>
-                            <hr class="soft" />
-                            <h5>Product Name </h5>
-                            <p>
-                                Nowadays the lingerie industry is one of the most successful business spheres.We always stay in
-                                touch with the latest fashion tendencies -
-                                that is why our goods are so popular..
-                            </p>
-                            <a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-                            <br class="clr" />
-                        </div>
-                        <div class="span3 alignR">
-                            <form class="form-horizontal qtyFrm">
-                                <h3> $140.00</h3>
-                                <label class="checkbox">
-                                    <input type="checkbox"> Adds product to compair
-                                </label><br />
-
-                                <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i
-                                        class=" icon-shopping-cart"></i></a>
-                                <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-
-                            </form>
-                        </div>
-                    </div>
-                    <hr class="soft" />
-                @endforeach
-                
-            </div>
-            <div class="tab-pane  active" id="blockView">
-                <ul class="thumbnails">
-                    @foreach ($categoryProducts as $product)
-                    <li class="span3">
-                        <div class="thumbnail">
-                            <a href="product_details.html">
-                                <img src="{{ asset('images/product_images/large/'.$product['main_image']) }}" alt="" />
-                            </a>
-                            <div class="caption">
-                                <h5>Casual T-Shirt</h5>
-                                <p>
-                                    I'm a paragraph. Click here
-                                </p>
-                                <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-                                            class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-                                            class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-                                        href="#">Rs.1000</a></h4>
-                            </div>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-                <hr class="soft" />
-            </div>
+        <div class="tab-content" id="table_data">
+            @include('front.pagination_data')
         </div>
         <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
         <div class="pagination">
-            <ul>
-                <li><a href="#">&lsaquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">...</a></li>
-                <li><a href="#">&rsaquo;</a></li>
-            </ul>
+            {{-- {{ $categoryProducts->links() }} --}}
         </div>
         <br class="clr" />
     </div>
 
 @endsection
-
-
